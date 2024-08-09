@@ -17,8 +17,9 @@ const AllArticles = () => {
     },
   });
   refetch();
-  const checkSubscribe = payment.map(item=> item?.planId);
-  
+  console.log(payment);
+  const [subscriber, setSubscriber] = useState(false);
+
   const [articles, isLoading, error] = useArticles();
   const [search, setSearch] = useState("");
 
@@ -97,7 +98,7 @@ const AllArticles = () => {
                     Publisher: {article?.publisher}
                   </h2>
 
-                  <Link
+                  {payment && <Link 
                     to={`/articleDetails/${article?._id}`}
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
@@ -111,7 +112,7 @@ const AllArticles = () => {
                     >
                       <path stroke="currentColor" d="M1 5h12m0 0L9 1m4 4L9 9" />
                     </svg>
-                  </Link>
+                  </Link>}
                 </div>
               </div>
             ))}
