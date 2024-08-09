@@ -1,13 +1,25 @@
 import { Link } from "react-router-dom";
 import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import usePayment from "../../../hooks/Payment/usePayment";
+import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
+import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 const AllArticles = () => {
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const { data: payment, refetch } = useQuery({
+    queryKey: ["payment", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/payment/${user?.email}`);
+      return res.data;
+    },
+  });
+  refetch();
+  const checkSubscribe = payment.map(item=> item?.planId);
+  
   const [articles, isLoading, error] = useArticles();
-  const [subscriber] = usePayment();
-  console.log(subscriber);
   const [search, setSearch] = useState("");
 
   if (isLoading) {
