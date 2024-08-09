@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import useAllUsers from "../../../hooks/useAllUsers/useAllUsers";
 
 const Static = () => {
-  const [percentage, setPercentage] = useState(0);
+  const [users, refetch, isLoading, error] = useAllUsers();
+  const [counts, setCounts] = useState({
+    allUsers: 0,
+    normalUsers: 0,
+    premiumUsers: 0,
+  });
+  // console.log(users.length);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (percentage < 80) {
-        setPercentage(percentage + 1);
-      }
-    }, 10);
-  }, [percentage]);
+    if (users) {
+      const total = users.length;
+      const normal = users.filter(user => !user.isPremium).length;
+      const premium = users.filter(user => user.isPremium).length;
+
+      setCounts({
+        allUsers: total,
+        normalUsers: normal,
+        premiumUsers: premium,
+      });
+    }
+  }, [users]);
 
   return (
     <div className="border-t-2 rounded-t-xl mt-10 bg-[#f7f5f6] border-blue-300">
@@ -23,12 +36,12 @@ const Static = () => {
 
           <CircularProgressbar
             className="drop-shadow-lg"
-            value={percentage}
-            text={`${percentage}%`}
+            value={counts}
+            text={`${counts.allUsers}%`}
           ></CircularProgressbar>
         </div>
         <div></div>
-        <div className="text-center space-y-5">
+        {/* <div className="text-center space-y-5">
           <label className="lg:text-2xl sm:text-xs font-medium inline-block">
             Normal Users
           </label>
@@ -37,9 +50,9 @@ const Static = () => {
             value={percentage}
             text={`${percentage}%`}
           />
-        </div>
+        </div> */}
         <div></div>
-        <div className="text-center space-y-5">
+        {/* <div className="text-center space-y-5">
           <label className="lg:text-2xl sm:text-xs font-medium inline-block">
             Premium Users
           </label>
@@ -48,7 +61,7 @@ const Static = () => {
             value={percentage}
             text={`${percentage}%`}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

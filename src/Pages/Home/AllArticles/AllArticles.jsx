@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
 import { useContext, useState } from "react";
@@ -6,7 +6,9 @@ import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 const AllArticles = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const { data: payment, refetch } = useQuery({
@@ -17,8 +19,6 @@ const AllArticles = () => {
     },
   });
   refetch();
-  console.log(payment);
-  const [subscriber, setSubscriber] = useState(false);
 
   const [articles, isLoading, error] = useArticles();
   const [search, setSearch] = useState("");
@@ -32,6 +32,13 @@ const AllArticles = () => {
   const approvedArticles = articles?.filter(
     (article) => article?.status === "Approved"
   );
+  // readmore button
+  const handleReadMore = async(id) => {
+    navigate(`/articleDetails/${id}`);
+    await axiosSecure.put(`/viewCount/${id}`).then((res) => {
+      console.log(res);
+    });
+  };
 
   // search field...
   const handleSearch = (e) => {
@@ -39,6 +46,7 @@ const AllArticles = () => {
     const search = e.target.value;
     setSearch(search);
   };
+
   return (
     <div className="pt-28">
       <Helmet>
@@ -98,21 +106,26 @@ const AllArticles = () => {
                     Publisher: {article?.publisher}
                   </h2>
 
-                  {payment && <Link 
-                    to={`/articleDetails/${article?._id}`}
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Read more
-                    <svg
-                      className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
+                  {payment && (
+                    <button
+                      onClick={() => handleReadMore(article?._id)}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                      <path stroke="currentColor" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                  </Link>}
+                      Read more
+                      <svg
+                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 10"
+                      >
+                        <path
+                          stroke="currentColor"
+                          d="M1 5h12m0 0L9 1m4 4L9 9"
+                        />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

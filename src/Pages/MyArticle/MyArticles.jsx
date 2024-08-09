@@ -52,7 +52,7 @@ const MyArticles = () => {
       dangerMode: true,
     }).then((willUpdate) => {
       if (willUpdate) {
-        axiosSecure.put(`/articles/${id}`).then((res) => {
+        axiosSecure.patch(`/articles/${id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             swal("Poof! Your imaginary file has been deleted!", {
               icon: "success",

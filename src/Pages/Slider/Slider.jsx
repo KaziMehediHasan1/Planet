@@ -5,13 +5,16 @@ import SliderCard from "./SliderCard";
 
 const Slider = () => {
   const [articles] = useArticles();
-  const data = articles?.filter(article=>article?.status === "Approved");
-  
-  return <Carousel>
-    {data?.map(article=>(
-      <SliderCard key={article?._id} article={article}></SliderCard>
-    ))}
-  </Carousel>;
+  const data = articles?.filter((article) => article?.status === "Approved");
+  const sortedArticles = data?.sort((a, b) => b.viewCount - a.viewCount);
+
+  return (
+    <Carousel>
+      {sortedArticles?.map((article) => (
+        <SliderCard key={article?._id} article={article}></SliderCard>
+      ))}
+    </Carousel>
+  );
 };
 
 export default Slider;
