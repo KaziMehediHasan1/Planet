@@ -1,11 +1,12 @@
-import useAxiosSecure from "../AxiosSecure/useAxiosSecure";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../AxiosPublic/useAxiosPublic";
 
 const usePayment = () => {
   const { user } = useContext(AuthContext);
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+
   const {
     data: payment,
     refetch,
@@ -14,7 +15,7 @@ const usePayment = () => {
   } = useQuery({
     queryKey: ["payment", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payment/${user?.email}`);
+      const res = await axiosPublic.get("/payment");
       return res.data;
     },
   });

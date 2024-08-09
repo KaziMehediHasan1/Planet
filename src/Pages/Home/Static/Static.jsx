@@ -10,30 +10,30 @@ const Static = () => {
   const [premiumUser, setPremiumUser] = useState(0);
   const [users] = useAllUsers();
   const [payment] = usePayment();
-  console.log(payment);
   useEffect(() => {
     setTimeout(() => {
-      if (allUser < users.length) {
+      if (allUser < users?.length) {
         setAllUsers(allUser + 1);
       }
-    }, 10);
-  }, [allUser]);
+    }, 1000);
+  }, [allUser, users.length]);
+
   // normal user..
   useEffect(() => {
     setTimeout(() => {
-      if (allUser < users.length) {
-        setAllUsers(allUser + 1);
+      if (normalUser < users?.length) {
+        setNormalUser(normalUser + 1);
       }
-    }, 10);
-  }, [allUser]);
-  // premium user...
+    }, 1000);
+  }, [normalUser, users.length]);
+  // // premium user...
   useEffect(() => {
     setTimeout(() => {
       if (premiumUser < payment.length) {
-        setPremiumUser(allUser + 1);
+        setPremiumUser(premiumUser + 1);
       }
-    }, 10);
-  }, [allUser]);
+    }, 1000);
+  }, [premiumUser, payment.length]);
 
   return (
     <div className="border-t-2 rounded-t-xl mt-10 bg-[#f7f5f6] border-blue-300">
@@ -47,7 +47,7 @@ const Static = () => {
             className="drop-shadow-lg"
             value={allUser}
             text={`${allUser}`}
-          ></CircularProgressbar>
+          />
         </div>
         <div></div>
         <div className="text-center space-y-5">
@@ -56,8 +56,8 @@ const Static = () => {
           </label>
           <CircularProgressbar
             className="drop-shadow-lg"
-            value={allUser}
-            text={`${allUser}`}
+            value={normalUser}
+            text={`${normalUser}`}
           />
         </div>
         <div></div>
@@ -67,8 +67,8 @@ const Static = () => {
           </label>
           <CircularProgressbar
             className="drop-shadow-lg"
-            value={allUser}
-            text={`${allUser}`}
+            value={premiumUser}
+            text={`${premiumUser}`}
           />
         </div>
       </div>

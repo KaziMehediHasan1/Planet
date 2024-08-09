@@ -2,11 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import usePlan from "../../../hooks/Plan/usePlan";
 
 const Plan = () => {
-  const [plan, refetch, isLoading, error] = usePlan();
+  const [plan, refetch] = usePlan();
 
   const free = plan?.filter((free) => free?.type === "Free");
   const Essential = plan?.filter((free) => free?.type === "Essential");
   const Premium = plan?.filter((free) => free?.type === "Premium");
+  refetch()
   return (
     <div>
       <div className="container px-6 py-14 mx-auto">
