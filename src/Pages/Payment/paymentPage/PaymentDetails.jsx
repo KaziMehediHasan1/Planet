@@ -5,7 +5,7 @@ const PaymentDetails = () => {
   const [payment] = usePayment();
   console.log(payment);
   return (
-    <div className="overflow-x-auto max-w-screen-lg mx-auto ">
+    <div className="overflow-x-auto max-w-screen-lg mx-auto md:px-5 lg:px-0">
       <table className="table mt-28 bg-cyan-300">
         {/* head */}
         <thead>
@@ -17,11 +17,11 @@ const PaymentDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {payment?.map((tk, index) => {
-            <tr key={tk?._id}>
+          {payment?.map((item, index) => {
+            <tr key={item?._id}>
               <th></th>
               <td>{index + 1}</td>
-              <td>Quality Control Specialist</td>
+              <td>{item?.price}</td>
               <td>Blue</td>
             </tr>
           })} 

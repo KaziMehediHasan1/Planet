@@ -9,7 +9,7 @@ const Plan = () => {
   const Premium = plan?.filter((free) => free?.type === "Premium");
   refetch()
   return (
-    <div>
+    
       <div className="container px-6 py-14 mx-auto">
         <div className="xl:items-center xl:-mx-10 xl:flex">
           <div className="flex flex-col items-center  xl:items-start xl:mx-10">
@@ -18,9 +18,9 @@ const Plan = () => {
             </h1>
 
             <div className="mt-4">
-              <span className="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-              <span className="inline-block w-3 h-1 mx-1 bg-blue-500 rounded-full"></span>
-              <span className="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
+              <span className="inline-block w-40 h-1 bg-white rounded-full"></span>
+              <span className="inline-block w-3 h-1 mx-1 bg-white rounded-full"></span>
+              <span className="inline-block w-1 h-1 bg-white rounded-full"></span>
             </div>
 
             <p className="mt-4 font-medium text-gray-500 dark:text-gray-300">
@@ -424,7 +424,7 @@ const Plan = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

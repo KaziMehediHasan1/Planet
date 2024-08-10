@@ -46,7 +46,7 @@ const Navbar = () => {
       <div>
         {/* md to lg  device */}
         <div className="md:flex items-center hidden sm:text-xs lg:text-[17px]">
-          <ul className="flex justify-center items-center md:space-x-[17px] lg:space-x-10 ml-4 cursor-pointer px-4">
+          <ul className="flex justify-center items-center md:space-x-[12px] lg:space-x-10 ml-4 cursor-pointer px-4">
             <NavLink
               to="/"
               className={({ isActive }) =>

@@ -70,7 +70,7 @@ const AllArticles = () => {
         </div>
       </form>
       <div className=" md:max-w-screen-2xl md:mx-auto border border-gray-400 shadow-lg rounded-md">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0">
           {approvedArticles
             ?.filter((item) => {
               return search.toLowerCase() === ""

@@ -5,7 +5,7 @@ const AllPublisher = () => {
   const publishers = publisher?.slice(0, 4);
   return (
     <div>
-      <section className=" p-28 bg-gradient-to-t rounded-md from-yellow-50">
+      <section className=" p-28">
         <h2 className="text-2xl font-semibold text-center capitalize lg:text-4xl dark:text-white">
           Publishers
         </h2>
@@ -21,7 +21,10 @@ const AllPublisher = () => {
           </p>
           <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {publishers?.map((publisher) => (
-              <div key={publisher._id} className="w-full max-w-xs bg-slate-500 p-4 rounded-md text-white text-center">
+              <div
+                key={publisher._id}
+                className="w-full max-w-xs bg-slate-500 p-4 rounded-md text-white text-center"
+              >
                 <img
                   className="object-cover object-center w-full h-48 mx-auto rounded-lg"
                   src={publisher?.logo}
