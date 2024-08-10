@@ -113,7 +113,7 @@ const Navbar = () => {
                 My Article
               </NavLink>
             ) : (
-              "" 
+              ""
             )}
 
             <NavLink
@@ -126,6 +126,7 @@ const Navbar = () => {
             >
               Premium Articles
             </NavLink>
+
             {user ? (
               <Link
                 onClick={handleSignOut}

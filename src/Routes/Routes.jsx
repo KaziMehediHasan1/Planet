@@ -21,6 +21,7 @@ import ArticleDetails from "../Pages/Home/AllArticles/ArticleDetails";
 import EditArticle from "../Pages/MyArticle/EditArticle";
 import Payment from "../Pages/Payment/Payment";
 import Statistics from "../Pages/Dashboard/Statistics/Statistics";
+import PaymentDetails from "../Pages/Payment/paymentPage/PaymentDetails";
 
 export const router = createBrowserRouter([
   {
@@ -76,14 +77,14 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
-      // {
-      //   path: "/premiumTable",
-      //   element: (
-      //     <PrivateRoutes>
-      //       <PremiumArticle></PremiumArticle>
-      //     </PrivateRoutes>
-      //   ),
-      // },
+      {
+        path: "/payment-page",
+        element: (
+          <PrivateRoutes>
+           <PaymentDetails></PaymentDetails>
+          </PrivateRoutes>
+        ),
+      },
       {
         path: "/my-articles",
         element: (

@@ -15,8 +15,8 @@ const Static = () => {
       if (allUser < users?.length) {
         setAllUsers(allUser + 1);
       }
-    }, 1000);
-  }, [allUser, users.length]);
+    });
+  }, [allUser]);
 
   // normal user..
   useEffect(() => {
@@ -24,16 +24,16 @@ const Static = () => {
       if (normalUser < users?.length) {
         setNormalUser(normalUser + 1);
       }
-    }, 1000);
-  }, [normalUser, users.length]);
+    });
+  }, [normalUser]);
   // // premium user...
   useEffect(() => {
     setTimeout(() => {
       if (premiumUser < payment.length) {
         setPremiumUser(premiumUser + 1);
       }
-    }, 1000);
-  }, [premiumUser, payment.length]);
+    });
+  }, [premiumUser]);
 
   return (
     <div className="border-t-2 rounded-t-xl mt-10 bg-[#f7f5f6] border-blue-300">

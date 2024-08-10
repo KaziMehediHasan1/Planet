@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const SliderCard = ({ article }) => {
   const { title, image, Description } = article;
   return (
-    <div>
+    <div className="mt-16">
       <div
         className="hero h-[750px]"
         style={{

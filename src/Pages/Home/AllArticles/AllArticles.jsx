@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
 import { useContext, useState } from "react";
@@ -6,7 +6,6 @@ import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -33,7 +32,7 @@ const AllArticles = () => {
     (article) => article?.status === "Approved"
   );
   // readmore button
-  const handleReadMore = async(id) => {
+  const handleReadMore = async (id) => {
     navigate(`/articleDetails/${id}`);
     await axiosSecure.put(`/viewCount/${id}`).then((res) => {
       console.log(res);
@@ -70,8 +69,8 @@ const AllArticles = () => {
           />
         </div>
       </form>
-      <div className="md:max-w-screen-xl md:mx-auto  border border-gray-400 shadow-lg rounded-md">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 md:gap-20 gap-5 mt-14 px-8 lg:space-x-4">
+      <div className=" md:max-w-screen-2xl md:mx-auto border border-gray-400 shadow-lg rounded-md">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto">
           {approvedArticles
             ?.filter((item) => {
               return search.toLowerCase() === ""
@@ -81,7 +80,7 @@ const AllArticles = () => {
             .map((article) => (
               <div
                 key={article._id}
-                className="mb-10 shadow-lg border rounded-lg dark:border-gray-700 md:w-80 max-h-[450px]"
+                className="mb-10 shadow-lg border rounded-lg dark:border-gray-700"
               >
                 <div className="relative">
                   <img

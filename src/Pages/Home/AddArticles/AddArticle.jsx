@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import CreatableSelect from "react-select/creatable";
-import img from "../../../assets/addArticles.jpg";
+import img from "../../../assets/addArticle.jpg";
 import swal from "sweetalert";
 import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 import { useNavigate } from "react-router-dom";

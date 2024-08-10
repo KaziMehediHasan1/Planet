@@ -8,13 +8,12 @@ import {
 } from "@radix-ui/themes/dist/cjs/index.js";
 import { Text } from "@radix-ui/themes/dist/cjs/components/callout.js";
 import { Label } from "@radix-ui/themes/dist/cjs/components/context-menu.js";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user, updateUser } = useContext(AuthContext);
   const handleUpdate = (name, photoURL) => {
-    console.log(name, photoURL, 'pacchi');
-    updateUser(name, photoURL)
-    .then(() => {
+    updateUser(name, photoURL).then(() => {
       console.log("result of the user updated value!");
     });
   };
@@ -38,9 +37,13 @@ const Profile = () => {
           {/* Dialog */}
           <div className="flex mt-4 md:mt-6">
             <Dialog.Root>
-              <Dialog.Trigger>
-                <Button>Edit profile</Button>
-              </Dialog.Trigger>
+              <div className="flex space-x-4">
+                <Dialog.Trigger>
+                  <Button>Edit profile</Button>
+                </Dialog.Trigger>
+
+                <Link to='/payment-page' className="text-white bg-blue-700 p-1 px-2 rounded-md">Payment Details</Link>
+              </div>
 
               <Dialog.Content maxWidth="450px">
                 <Dialog.Title>Edit profile</Dialog.Title>
