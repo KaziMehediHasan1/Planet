@@ -42,14 +42,11 @@ const Home = () => {
                   <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800">
                     <div className="flex justify-between pb-4 border-bottom">
                       <div className="flex items-center">
-                        <a
-                          rel="noopener noreferrer"
-                          href="#"
-                          className="mb-0 capitalize text-gray-800"
-                        >
+                        <p className="mb-0 capitalize text-gray-800">
                           {item?.publisher}
-                        </a>
+                        </p>
                       </div>
+                      <p>{item?.premium === "isPremium" && <p className="border px-2 bg-pink-500 rounded-md py-1 text-white">Premium</p>}</p>
                     </div>
                     <div className="space-y-4">
                       <div className="space-y-2">
@@ -58,16 +55,15 @@ const Home = () => {
                           alt=""
                           className="block object-cover object-center w-full rounded-md h-72 bg-gray-500"
                         />
-                        
                       </div>
                       <div className="space-y-2">
                         <a rel="noopener noreferrer" href="#" className="block">
                           <h3 className="text-xl font-semibold text-violet-600">
-                           {item?.title}
+                            {item?.title}
                           </h3>
                         </a>
                         <p className="leading-snug text-gray-600">
-                          {item?.Description.slice(0, 80)}..}
+                          {item?.Description.slice(0, 80)}..
                         </p>
                       </div>
                     </div>

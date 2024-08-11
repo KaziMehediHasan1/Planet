@@ -17,8 +17,9 @@ const Subscription = () => {
       <span className="loading loading-bars loading-lg"></span>
     </div>;
   }
+
   return (
-    <div className="bg-[#21344c]">
+    <div className="bg-[#f7f9ff]">
       <div className="max-w-screen-xl mx-auto  px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <Helmet>
           <title>Planet | Subscription</title>

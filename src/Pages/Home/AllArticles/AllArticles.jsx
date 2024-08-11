@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
 import { useContext, useState } from "react";
@@ -72,62 +72,38 @@ const AllArticles = () => {
         </div>
       </form>
       <div className=" md:max-w-screen-2xl md:mx-auto border border-gray-400 shadow-lg rounded-md">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0">
+        <div className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0">
           {approvedArticles
             ?.filter((item) => {
               return search.toLowerCase() === ""
                 ? item
                 : item.title.toLowerCase().includes(search);
             })
-            .map((article) => (
-              <div
-                key={article._id}
-                className="mb-10 shadow-lg border rounded-lg dark:border-gray-700 w-72 h-[490px]"
-              >
-                <div className="relative">
-                  <img
-                    className="rounded-t-lg w-full h-56 object-cover"
-                    src={article?.image}
-                    alt={article?.title}
-                  />
-                  {article.premium && (
-                    <h1 className="absolute top-4 left-4 bg-gradient-to-tr from-pink-400 to-blue-400 rounded-md p-1 text-white font-medium">
-                      Premium
-                    </h1>
-                  )}
+            .map((article) =>
+              article?.premium === "isPremium" ? (
+                <div className="card bg-base-100 w-96 h-[480px] shadow-xl">
+                  <figure>
+                    <img src={article?.image} alt="Shoes" />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{article?.title}</h2>
+                    <p>{article?.Description.slice(0, 120)}</p>
+                    <div className="card-title flex justify-between">
+                      <h1 className="text-sm text-green-400">
+                        {article?.publisher}
+                      </h1>
+                      {article?.premium === "isPremium" && (
+                        <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
+                          Premium
+                        </h1>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h5 className="mb-2 inline-block text-xl font-bold tracking-tight dark:text-white">
-                    {article?.title}
-                  </h5>
-                  <p className="inline-block font-normal dark:text-gray-400">
-                    {article?.Description?.slice(0, 80)}..
-                  </p>
-                  <h2 className="text-md">Publisher: {article?.publisher}</h2>
-
-                  {payment && (
-                    <button
-                      onClick={() => handleReadMore(article?._id)}
-                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Read more
-                      <svg
-                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 10"
-                      >
-                        <path
-                          stroke="currentColor"
-                          d="M1 5h12m0 0L9 1m4 4L9 9"
-                        />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+              ) : (
+                ""
+              )
+            )}
         </div>
       </div>
     </div>

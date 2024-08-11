@@ -67,7 +67,7 @@ const DashArticles = () => {
               <th scope="col" className="px-6 py-3">
                 Status
               </th>
-             
+
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
@@ -89,10 +89,10 @@ const DashArticles = () => {
                 </th>
                 <th>
                   <div className="ps-3 text-base font-semibold">
-                    {article.title}
+                    {article.title.slice(0, 80)}..
                   </div>
                 </th>
-              
+
                 <td className="px-6 py-4">
                   {article.status === "Approved" ? (
                     <p className=" text-green-600 font-bold">Approved</p>

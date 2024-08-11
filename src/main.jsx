@@ -12,7 +12,7 @@ import { Theme } from "@radix-ui/themes/dist/cjs/index.js";
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Theme>
+    <Theme grayColor="mauve">
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>
         <HelmetProvider>
