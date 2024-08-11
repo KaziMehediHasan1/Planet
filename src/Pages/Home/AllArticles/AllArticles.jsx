@@ -47,7 +47,7 @@ const AllArticles = () => {
   };
 
   return (
-    <div className="pt-28">
+    <div className="pt-28 mb-14">
       <Helmet>
         <title>Planet | Articles</title>
       </Helmet>

@@ -21,12 +21,12 @@ const Home = () => {
         </Helmet>
       </div>
       <Slider></Slider>
-      <div className=" bg-gradient-to-t rounded-md from-yellow-50">
+      <div className=" bg-gradient-to-b ">
         <AllPublisher></AllPublisher>
 
         {/* trending blogs */}
-        <div className="border rounded-t-md">
-          <div className="max-w-screen-2xl  mx-auto ">
+        <div className=" rounded-t-md p-4">
+          <div className="max-w-screen-2xl  mx-auto border-2">
             <section className=" dark:bg-gray-900">
               <div className="container px-6 py-10 mx-auto">
                 <h1 className="text-2xl  font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">

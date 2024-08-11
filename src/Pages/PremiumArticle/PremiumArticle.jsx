@@ -16,7 +16,7 @@ const PremiumArticle = () => {
     (article) => article?.status === "Approved"
   );
   return (
-    <div>
+    <div className="pb-20">
       <Helmet>
         <title>Planet | Premium-Articles</title>
       </Helmet>

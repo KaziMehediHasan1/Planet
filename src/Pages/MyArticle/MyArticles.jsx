@@ -1,4 +1,4 @@
-import { MdDeleteForever,  } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import useArticles from "../../hooks/useArticles/useArticles";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 import swal from "sweetalert";

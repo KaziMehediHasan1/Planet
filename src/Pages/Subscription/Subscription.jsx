@@ -5,8 +5,7 @@ import { Helmet } from "react-helmet";
 import usePlan from "../../hooks/Plan/usePlan";
 const Subscription = () => {
   const { loading } = useContext(AuthContext);
-  const [plan, refetch, isLoading, error] = usePlan();
-
+  const [plan] = usePlan();
   const free = plan?.filter((free) => free?.type === "Free");
   const Essential = plan?.filter((free) => free?.type === "Essential");
   const Premium = plan?.filter((free) => free?.type === "Premium");
