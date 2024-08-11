@@ -115,7 +115,7 @@ const MyArticles = () => {
                 </th>
                 <th>
                   <div className="ps-3 text-base font-semibold md:inline-table">
-                    {article.title}
+                    {article.title.slice(0,80)}..
                   </div>
                 </th>
                 <th className="px-6 py-4">

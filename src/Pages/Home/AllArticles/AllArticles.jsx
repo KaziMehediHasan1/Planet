@@ -22,7 +22,7 @@ const AllArticles = () => {
   refetch();
 
   const [articles, isLoading, error] = useArticles();
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
 
   if (isLoading) {
     <Lottie className="p-52" animationData={loading} />;
@@ -82,11 +82,11 @@ const AllArticles = () => {
             .map((article) => (
               <div
                 key={article._id}
-                className="mb-10 shadow-lg border rounded-lg dark:border-gray-700"
+                className="mb-10 shadow-lg border rounded-lg dark:border-gray-700 w-72 h-[490px]"
               >
                 <div className="relative">
                   <img
-                    className="rounded-t-lg w-full h-48 object-cover"
+                    className="rounded-t-lg w-full h-56 object-cover"
                     src={article?.image}
                     alt={article?.title}
                   />
@@ -97,15 +97,13 @@ const AllArticles = () => {
                   )}
                 </div>
                 <div className="p-4">
-                  <h5 className="mb-2 text-xl font-bold tracking-tight dark:text-white">
+                  <h5 className="mb-2 inline-block text-xl font-bold tracking-tight dark:text-white">
                     {article?.title}
                   </h5>
-                  <p className="mb-3 font-normal dark:text-gray-400">
+                  <p className="inline-block font-normal dark:text-gray-400">
                     {article?.Description?.slice(0, 80)}..
                   </p>
-                  <h2 className="text-md pb-2">
-                    Publisher: {article?.publisher}
-                  </h2>
+                  <h2 className="text-md">Publisher: {article?.publisher}</h2>
 
                   {payment && (
                     <button
