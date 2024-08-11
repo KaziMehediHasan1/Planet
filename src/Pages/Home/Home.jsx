@@ -7,9 +7,11 @@ import Question from "./Question/Question";
 import Subscribe from "./NewSubscribe/Subscribe";
 import useArticles from "../../hooks/useArticles/useArticles";
 import { NavLink } from "react-router-dom";
+
 const Home = () => {
   const [articles, refetch, isLoading, error] = useArticles();
-  refetch();
+
+  
   if (isLoading) {
     <p>loading...</p>;
   }

@@ -1,13 +1,27 @@
 import usePublisher from "../../../hooks/getPublisher/usePublisher";
-
+import React from "react";
+import {  Cursor, Typewriter } from "react-simple-typewriter";
 const AllPublisher = () => {
   const [publisher] = usePublisher();
   const publishers = publisher?.slice(0, 4);
+ 
   return (
     <div>
       <section className=" p-28">
         <h2 className="text-2xl font-semibold text-center capitalize lg:text-4xl dark:text-white">
-          Publishers
+          Publishers{" "}
+          <span className="text-bold text-green-500">
+            <Typewriter
+              words={[
+                "IndiaTv",
+                "The Essential List",
+                "Tech Decoded",
+                "Future Earth",
+              ]}
+              loop={5}
+            ></Typewriter>
+          </span>{" "}
+          <Cursor></Cursor>
         </h2>
         <div className="md:max-w-screen-xl mx-auto px-6 py-8 ">
           <p className="text-center">

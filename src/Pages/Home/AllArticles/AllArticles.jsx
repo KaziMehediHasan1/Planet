@@ -6,6 +6,8 @@ import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import loading from "../../../assets/loading.json";
+import Lottie from "lottie-react";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -20,10 +22,10 @@ const AllArticles = () => {
   refetch();
 
   const [articles, isLoading, error] = useArticles();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("")
 
   if (isLoading) {
-    <h1 className="text-black">Loading....</h1>;
+    <Lottie className="p-52" animationData={loading} />;
   }
   if (error) {
     <span>Error:{error.message}</span>;

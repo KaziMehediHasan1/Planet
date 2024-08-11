@@ -10,9 +10,8 @@ import {
 } from "react-simple-captcha";
 import useAxiosPublic from "../../hooks/AxiosPublic/useAxiosPublic";
 import { toast } from "react-toastify";
-
 const Login = () => {
-  const { LoginUser, GoogleLogin, loading, resetPassword } =
+  const { LoginUser, GoogleLogin, resetPassword } =
     useContext(AuthContext);
   const [email, setEmail] = useState();
   const [disabled, setDisabled] = useState(true);
@@ -42,6 +41,8 @@ const Login = () => {
         toast.error("Login Failed");
       });
   };
+
+  
 
   // reset password
   const handleResetPassword = async () => {
