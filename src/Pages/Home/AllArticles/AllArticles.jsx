@@ -6,8 +6,6 @@ import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import loading from "../../../assets/loading.json";
-import Lottie from "lottie-react";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -24,9 +22,6 @@ const AllArticles = () => {
   const [articles, isLoading, error] = useArticles();
   const [search, setSearch] = useState("");
 
-  if (isLoading) {
-    <Lottie className="p-52" animationData={loading} />;
-  }
   if (error) {
     <span>Error:{error.message}</span>;
   }
@@ -81,7 +76,10 @@ const AllArticles = () => {
             })
             .map((article) =>
               article?.premium === "isPremium" ? (
-                <div className="card bg-base-100 w-96 h-[480px] shadow-xl">
+                <NavLink
+                  to={`/articleDetails/${article?._id}`}
+                  className="card bg-base-100 w-96 h-[480px] shadow-xl"
+                >
                   <figure>
                     <img src={article?.image} alt="Shoes" />
                   </figure>
@@ -99,7 +97,7 @@ const AllArticles = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </NavLink>
               ) : (
                 ""
               )

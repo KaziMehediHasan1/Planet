@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import CreatableSelect from "react-select/creatable";
-import img from "../../../assets/addArticle.jpg";
+import img from "../../../assets/addArticle.json";
 import swal from "sweetalert";
 import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import { Controller, useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import usePublisher from "../../../hooks/getPublisher/usePublisher";
+import Lottie from "lottie-react";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddArticle = () => {
@@ -44,10 +45,6 @@ const AddArticle = () => {
     }
   };
 
-  // if (isLoading || loading) {
-  //   return <p>Loading..</p>;
-  // }
-
   return (
     <div>
       <Helmet>
@@ -59,8 +56,8 @@ const AddArticle = () => {
           className="container font-Fraunces mt-28 mb-20 flex flex-col mx-auto space-y-12"
         >
           <fieldset className="grid grid-cols-6 gap-10 p-6 rounded-md shadow-sm bg-gray-50">
-            <div className="space-y-2  mt-4 col-span-full lg:col-span-3">
-              <img className="rounded-lg" src={img} alt="" />
+            <div className="space-y-2 max-lg:w-96 mt-4 lg:col-span-3">
+              <Lottie animationData={img}></Lottie>
             </div>
 
             {/* Input Field */}

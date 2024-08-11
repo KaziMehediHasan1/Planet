@@ -7,7 +7,6 @@ import Question from "./Question/Question";
 import Subscribe from "./NewSubscribe/Subscribe";
 import useArticles from "../../hooks/useArticles/useArticles";
 import { NavLink } from "react-router-dom";
-
 const Home = () => {
   const [articles, isLoading] = useArticles();
   if (isLoading) {
@@ -46,7 +45,13 @@ const Home = () => {
                           {item?.publisher}
                         </p>
                       </div>
-                      <p>{item?.premium === "isPremium" && <p className="border px-2 bg-pink-500 rounded-md py-1 text-white">Premium</p>}</p>
+                      <p>
+                        {item?.premium === "isPremium" && (
+                          <p className="border px-2 bg-pink-500 rounded-md py-1 text-white">
+                            Premium
+                          </p>
+                        )}
+                      </p>
                     </div>
                     <div className="space-y-4">
                       <div className="space-y-2">
