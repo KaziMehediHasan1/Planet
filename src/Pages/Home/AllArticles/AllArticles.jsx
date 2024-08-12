@@ -1,11 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import "aos/dist/aos.css";
+import AOS from "aos";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -43,6 +45,12 @@ const AllArticles = () => {
     setSearch(search);
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+    });
+  }, []);
+
   return (
     <div className="pt-28 mb-14">
       <Helmet>
@@ -67,7 +75,12 @@ const AllArticles = () => {
         </div>
       </form>
       <div className=" md:max-w-screen-2xl md:mx-auto border border-gray-400 shadow-lg rounded-md">
-        <div className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0">
+        <div
+          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           {approvedArticles
             ?.filter((item) => {
               return search.toLowerCase() === ""

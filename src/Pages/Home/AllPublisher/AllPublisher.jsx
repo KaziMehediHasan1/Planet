@@ -1,10 +1,18 @@
 import usePublisher from "../../../hooks/getPublisher/usePublisher";
-import React from "react";
-import {  Cursor, Typewriter } from "react-simple-typewriter";
+import React, { useEffect } from "react";
+import { Cursor, Typewriter } from "react-simple-typewriter";
+import "aos/dist/aos.css";
+import AOS from "aos";
 const AllPublisher = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      delay:500,
+    });
+  }, []);
   const [publisher] = usePublisher();
   const publishers = publisher?.slice(0, 4);
- 
+
   return (
     <div>
       <section className=" p-28">
@@ -37,15 +45,15 @@ const AllPublisher = () => {
             {publishers?.map((publisher) => (
               <div
                 key={publisher._id}
-                className="w-full max-w-xs bg-slate-500 p-4 rounded-md text-white text-center"
-              >
+                className="w-full max-w-xs bg-slate-300 p-4 rounded-md text-white text-center"
+                data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                 <img
                   className="object-cover object-center w-full h-48 mx-auto rounded-lg"
                   src={publisher?.logo}
                   alt="avatar"
                 />
 
-                <h3 className="text-lg mt-5 font-medium  dark:text-gray-200">
+                <h3 className="text-lg mt-5 font-medium text-black  dark:text-gray-200">
                   {publisher?.name}
                 </h3>
               </div>

@@ -53,9 +53,9 @@ const AddArticle = () => {
       <section className="p-6 bg-gray-100 text-gray-900">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="container font-Fraunces mt-28 mb-20 flex flex-col mx-auto space-y-12"
+          className="container font-Fraunces mt-14 flex flex-col mx-auto space-y-12"
         >
-          <fieldset className="grid grid-cols-6 gap-10 p-6 rounded-md shadow-sm bg-gray-50">
+          <fieldset className="grid grid-cols-6 gap-10 p-6 rounded-md shadow-sm bg-gray-50 ">
             <div className="space-y-2 max-lg:w-96 mt-4 lg:col-span-3">
               <Lottie animationData={img}></Lottie>
             </div>
