@@ -8,6 +8,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import { motion } from "framer-motion";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -89,28 +90,30 @@ const AllArticles = () => {
             })
             .map((article) =>
               article?.premium === "isPremium" ? (
-                <NavLink
-                  to={`/articleDetails/${article?._id}`}
-                  className="card bg-base-100 w-96 h-[480px] shadow-xl"
-                >
-                  <figure>
-                    <img src={article?.image} alt="Shoes" />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title">{article?.title}</h2>
-                    <p>{article?.Description.slice(0, 120)}</p>
-                    <div className="card-title flex justify-between">
-                      <h1 className="text-sm text-green-400">
-                        {article?.publisher}
-                      </h1>
-                      {article?.premium === "isPremium" && (
-                        <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
-                          Premium
+                <motion.div whileHover={{ scale: 1.1 }}>
+                  <NavLink
+                    to={`/articleDetails/${article?._id}`}
+                    className="card bg-base-100 w-96 h-[480px] shadow-xl"
+                  >
+                    <figure>
+                      <img src={article?.image} alt="Shoes" />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">{article?.title}</h2>
+                      <p>{article?.Description.slice(0, 120)}</p>
+                      <div className="card-title flex justify-between">
+                        <h1 className="text-sm text-green-400">
+                          {article?.publisher}
                         </h1>
-                      )}
+                        {article?.premium === "isPremium" && (
+                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
+                            Premium
+                          </h1>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </NavLink>
+                  </NavLink>
+                </motion.div>
               ) : (
                 ""
               )

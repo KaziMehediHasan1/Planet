@@ -6,23 +6,44 @@ import Slider from "../Slider/Slider";
 import Question from "./Question/Question";
 import Subscribe from "./NewSubscribe/Subscribe";
 import useArticles from "../../hooks/useArticles/useArticles";
-import { NavLink } from "react-router-dom";
-import "animate.css";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
+import usePayment from "../../hooks/Payment/usePayment";
 const Home = () => {
+  const { user } = useContext(AuthContext);
   const [articles, isLoading] = useArticles();
+  const [payment, refetch] = usePayment();
+  const navigate = useNavigate();
+  const [premiumUser, setPremiumUser] = useState();
   if (isLoading) {
     <p>loading...</p>;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     AOS.init({
-      duration:1500,
-      delay:500,
-    })
-  },[])
+      duration: 1500,
+      delay: 500,
+    });
+  }, []);
+
+  // is user Subscriber..
+  useEffect(() => {
+    const subscriber = payment?.map((sub) => sub?.email);
+    const isUserPremium = !!subscriber === !!user?.email;
+    setPremiumUser(isUserPremium);
+    refetch();
+  }, [premiumUser]);
+  const handleDetails = (e) => {
+    if (premiumUser) {
+      navigate(`/articleDetails/${e}`);
+    } else {
+      navigate("/subscription");
+    }
+  };
   return (
     <div className="bg-cyan-100">
       <div>
@@ -35,40 +56,48 @@ const Home = () => {
       <AllPublisher></AllPublisher>
 
       {/* trending blogs */}
-      <div className=" rounded-t-md bg-blue-200">
+      <div className=" rounded-t-md">
         <div className="max-w-screen-2xl mx-auto p-20">
-          <h1 className="text-2xl  font-bold text-center capitalize lg:text-4xl dark:text-white">
-            From the blog
+          <h1
+            className="text-2xl  font-bold text-center capitalize lg:text-4xl dark:text-white "
+            data-aos="fade-right"
+          >
+            Trending Articles
           </h1>
           <section className=" dark:bg-gray-900">
             <div className="container px-6 py-10 mx-auto">
               <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-3">
                 {articles?.slice(0, 6).map((item) => (
-                  <div className=" md:max-w-screen-2xl md:mx-auto " data-aos="fade-right fade-left" >
-                    <div className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0">
-                      <NavLink
-                        to={`/articleDetails/${item?._id}`}
-                        className="card bg-base-100 w-96 h-[480px] shadow-xl"
-                      >
-                        <figure>
+                  <div
+                    className=" md:max-w-screen-2xl md:mx-auto "
+                    data-aos="fade-right fade-left"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0"
+                    >
+                      <div className="card bg-base-100 w-96 h-[480px] shadow-xl">
+                        <figure className="relative">
                           <img src={item?.image} alt="Shoes" />
+                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6">
+                            Premium
+                          </h1>
                         </figure>
                         <div className="card-body">
                           <h2 className="card-title">{item?.title}</h2>
                           <p>{item?.Description.slice(0, 120)}</p>
-                          <div className="card-title flex justify-between">
-                            <h1 className="text-sm text-green-400">
-                              {item?.publisher}
-                            </h1>
-                            {item?.premium === "isPremium" && (
-                              <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
-                                Premium
-                              </h1>
-                            )}
+
+                          <div className="card-title">
+                            <button
+                              onClick={() => handleDetails(item?._id)}
+                              className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300"
+                            >
+                              Read
+                            </button>
                           </div>
                         </div>
-                      </NavLink>
-                    </div>
+                      </div>
+                    </motion.div>
                   </div>
                 ))}
               </div>

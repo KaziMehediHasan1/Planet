@@ -85,11 +85,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex sm:flex-col sm:items-center  justify-between max-w-screen-md mx-auto border rounded-md shadow-sm sm:p-10 mt-10">
-      <div className="lg:mt-28">
+    <div className="grid lg:grid-cols-2 justify-center lg:items-center lg:max-w-screen-xl mx-auto border rounded-md shadow-sm sm:p-10  lg:mt-6">
+      <div>
         <Lottie animationData={LottieLogin}></Lottie>
       </div>
-      <div className="flex flex-col rounded-lg w-full max-w-md my-32 p-12 space-y-4 text-center bg-gray-100 text-gray-800">
+      <div className="flex flex-col rounded-lg w-full max-w-md md:my-32 p-12 space-y-4 text-center bg-gray-100 text-gray-800 sm:p-10 md:mx-16">
         <Helmet>
           <title>Planet || Login</title>
         </Helmet>
