@@ -39,34 +39,34 @@ const Static = () => {
     <div className=" border-blue-300 border-b rounded-b-md rounded-t-md border-t">
       <div className="md:w-4/5 lg:w-2/3 w-1/4 gap-5 md:gap-10 grid  md:grid-cols-5 container mx-auto py-14">
         <div className="text-center space-y-5">
-          <label className="lg:text-2xl sm:text-xs font-medium inline-block">
+          <label className="lg:text-2xl sm:text-xs  inline-block font-uiFont font-semibold">
             All Users
           </label>
 
           <CircularProgressbar
-            className="drop-shadow-lg"
+            className="drop-shadow-lg font-uiFont font-semibold"
             value={allUser}
             text={`${allUser}`}
           />
         </div>
         <div></div>
         <div className="text-center space-y-5">
-          <label className="lg:text-2xl sm:text-xs font-medium inline-block">
+          <label className="lg:text-2xl sm:text-xs font-uiFont font-semibold inline-block">
             Normal Users
           </label>
           <CircularProgressbar
-            className="drop-shadow-lg"
+            className="drop-shadow-lg font-uiFont font-semibold"
             value={normalUser}
             text={`${normalUser}`}
           />
         </div>
         <div></div>
         <div className="text-center space-y-5">
-          <label className="lg:text-2xl sm:text-xs font-medium inline-block">
+          <label className="lg:text-2xl sm:text-xs font-uiFont font-semibold inline-block">
             Premium Users
           </label>
           <CircularProgressbar
-            className="drop-shadow-lg"
+            className="drop-shadow-lg font-uiFont font-semibold"
             value={premiumUser}
             text={`${premiumUser}`}
           />

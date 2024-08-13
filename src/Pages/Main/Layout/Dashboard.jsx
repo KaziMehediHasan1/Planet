@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
+ 
   return (
     <div>
       <Helmet>

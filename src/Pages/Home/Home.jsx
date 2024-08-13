@@ -6,7 +6,7 @@ import Slider from "../Slider/Slider";
 import Question from "./Question/Question";
 import Subscribe from "./NewSubscribe/Subscribe";
 import useArticles from "../../hooks/useArticles/useArticles";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -57,16 +57,16 @@ const Home = () => {
 
       {/* trending blogs */}
       <div className=" rounded-t-md">
-        <div className="max-w-screen-2xl mx-auto p-20">
+        <div className="max-w-screen-2xl mx-auto">
           <h1
-            className="text-2xl  font-bold text-center capitalize lg:text-4xl dark:text-white "
+            className="text-2xl  font-bold text-center capitalize lg:text-4xl dark:text-white  font-uiFont"
             data-aos="fade-right"
           >
             Trending Articles
           </h1>
           <section className=" dark:bg-gray-900">
             <div className="container px-6 py-10 mx-auto">
-              <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-3">
+              <div className="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-3 md:grid-cols-2">
                 {articles?.slice(0, 6).map((item) => (
                   <div
                     className=" md:max-w-screen-2xl md:mx-auto "
@@ -76,21 +76,29 @@ const Home = () => {
                       whileHover={{ scale: 1.1 }}
                       className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0"
                     >
-                      <div className="card bg-base-100 w-96 h-[480px] shadow-xl">
+                      <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl">
                         <figure className="relative">
-                          <img src={item?.image} alt="Shoes" />
-                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6">
+                          <img
+                            className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
+                            src={item?.image}
+                            alt="Shoes"
+                          />
+                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium">
                             Premium
                           </h1>
                         </figure>
                         <div className="card-body">
-                          <h2 className="card-title">{item?.title}</h2>
-                          <p>{item?.Description.slice(0, 120)}</p>
+                          <h2 className="card-title font-uiFont">
+                            {item?.title}
+                          </h2>
+                          <p className="font-uiFont font-medium">
+                            {item?.Description?.slice(0, 120)}
+                          </p>
 
                           <div className="card-title">
                             <button
                               onClick={() => handleDetails(item?._id)}
-                              className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300"
+                              className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300 font-uiFont font-semibold"
                             >
                               Read
                             </button>

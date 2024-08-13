@@ -1,7 +1,7 @@
 const Question = () => {
   return (
     <section className=" mt-16 text-gray-800 p-10 container  mx-auto">
-      <div className="max-w-screen-lg mx-auto px-4 py-8  md:p-8">
+      <div className="max-w-screen-lg mx-auto px-4 py-8  md:p-8 font-uiFont">
         <h2 className="text-2xl font-semibold sm:text-4xl pb-4 text-center">
           Frequently Asked Questions
         </h2>
@@ -10,7 +10,7 @@ const Question = () => {
           orci at lacus amet bibendum.
         </p>
         <div className="space-y-4">
-          <details className="w-full border-2 rounded-lg">
+          <details className="w-full border-2 rounded-lg ">
             <summary className="px-4 py-6 focus:outline-none focus-visible:ring-violet-600">
               Ex orci laoreet egestas sapien magna egestas scelerisque?
             </summary>

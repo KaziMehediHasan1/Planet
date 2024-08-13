@@ -65,11 +65,10 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-between max-w-screen-xl mx-auto border shadow-sm p-10 mt-10">
-      <div className="  rounded-md ">
-        <Lottie animationData={LottieImag}></Lottie>
-      </div>
-      <div className="flex flex-col rounded-lg w-full max-w-md my-32 p-12 space-y-4 text-center bg-gray-100 text-gray-800">
+    <div className="grid lg:grid-cols-2 justify-center lg:items-center max-w-screen-xl mx-auto p-6">
+      <Lottie animationData={LottieImag}></Lottie>
+
+      <div className="flex flex-col rounded-lg w-full max-w-md md:my-32 md:mx-20 p-12 space-y-4 text-center bg-gray-100 text-gray-800">
         <Helmet>
           <title>Planet || Create Account</title>
         </Helmet>

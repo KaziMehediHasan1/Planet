@@ -83,22 +83,22 @@ const DashArticles = () => {
                 >
                   <img
                     className="w-10 h-10"
-                    src={article.image}
+                    src={article?.image}
                     alt="Jese image"
                   />
                 </th>
                 <th>
                   <div className="ps-3 text-base font-semibold">
-                    {article.title.slice(0, 80)}..
+                    {article.title?.slice(0, 80)}..
                   </div>
                 </th>
 
                 <td className="px-6 py-4">
-                  {article.status === "Approved" ? (
+                  {article?.status === "Approved" ? (
                     <p className=" text-green-600 font-bold">Approved</p>
                   ) : (
                     <button
-                      onClick={() => handleApprove(article._id)}
+                      onClick={() => handleApprove(article?._id)}
                       className="flex items-center"
                     >
                       <p className=" text-red-600">Approve</p>
@@ -106,7 +106,7 @@ const DashArticles = () => {
                   )}
                 </td>
                 <td
-                  onClick={() => handleDeleteArticles(article._id)}
+                  onClick={() => handleDeleteArticles(article?._id)}
                   className="px-6 py-4"
                 >
                   <MdDeleteForever className="text-2xl"></MdDeleteForever>

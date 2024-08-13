@@ -11,8 +11,8 @@ const Subscribe = () => {
     }
   };
   return (
-    <div className="mt-14  p-16  bg-slate-200">
-      <section className="flex flex-col max-w-screen-lg mx-auto overflow-hidden bg-blue-100 rounded-lg shadow-lg dark:bg-gray-800 md:flex-row md:h-52">
+    <div className="mt-14  p-16 bg-slate-200">
+      <section className="flex flex-col max-w-screen-lg mx-auto overflow-hidden bg-blue-100 rounded-lg shadow-lg dark:bg-gray-800 md:flex-row md:h-52 font-uiFont font-medium">
         <div className="md:flex md:items-center md:justify-center md:w-1/2 md:bg-gray-700 md:dark:bg-gray-800">
           <div className="px-6 py-6 md:px-8 md:py-0 ">
             <h2 className="text-lg font-bold text-gray-700 dark:text-white md:text-gray-100">

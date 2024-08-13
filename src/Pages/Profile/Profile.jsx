@@ -21,7 +21,7 @@ const Profile = () => {
   return (
     <div className="p-28">
       <div className="w-full md:w-[500px] md:h-[450px] sm:max-w-sm md:max-w-screen-xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex flex-col py-10 justify-center my-10 items-center pb-10">
+        <div className="flex flex-col py-10 justify-center my-10 items-center pb-10 font-uiFont">
           <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
             src={user?.photoURL}
@@ -42,7 +42,11 @@ const Profile = () => {
                   <Button>Edit profile</Button>
                 </Dialog.Trigger>
 
-                <Link to='/payment-page' className="text-white bg-blue-700 p-1 px-2 rounded-md">Payment Details</Link>
+                <Link to="/payment-page">
+                  <Dialog.Trigger>
+                    <Button>Payment Details</Button>
+                  </Dialog.Trigger>
+                </Link>
               </div>
 
               <Dialog.Content maxWidth="450px">

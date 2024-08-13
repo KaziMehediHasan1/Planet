@@ -69,7 +69,7 @@ const MyArticles = () => {
   return (
     <div className="p-10">
       <div className="relative shadow-md sm:rounded-lg mt-16 overflow-x-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 font-uiFont">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="p-4">
@@ -109,19 +109,19 @@ const MyArticles = () => {
                 >
                   <img
                     className="w-10 h-10"
-                    src={article.image}
+                    src={article?.image}
                     alt="Jese image"
                   />
                 </th>
                 <th>
                   <div className="ps-3 text-base font-semibold md:inline-table">
-                    {article.title.slice(0,80)}..
+                    {article?.title.slice(0,80)}..
                   </div>
                 </th>
                 <th className="px-6 py-4">
                   <Link
                     to={`/articleDetails/${article?._id}`}
-                    className=" bg-cyan-600 text-white p-1 rounded"
+                    className=" bg-cyan-600 text-white p-1 rounded font-medium"
                   >
                     Details
                   </Link>
@@ -132,7 +132,7 @@ const MyArticles = () => {
                   ) : (
                     <button
                       onClick={() => handlePremium(article?._id)}
-                      className="text-white p-1 rounded font-bold bg-green-400"
+                      className="text-white p-1 rounded font-medium bg-green-400 "
                     >
                       Premium
                     </button>
@@ -146,7 +146,7 @@ const MyArticles = () => {
                   )}
                 </td>
                 <td
-                  onClick={() => handleDeleteArticles(article._id)}
+                  onClick={() => handleDeleteArticles(article?._id)}
                   className="px-6 py-4 cursor-pointer"
                 >
                   <MdDeleteForever className="text-3xl bg-red-600 text-white rounded p-1"></MdDeleteForever>
@@ -154,7 +154,7 @@ const MyArticles = () => {
                 <th className="px-6 py-4">
                   <Link
                     to={`/editArticle/${article?._id}`}
-                    className="bg-cyan-600 text-white p-1 rounded"
+                    className="bg-cyan-600 text-white p-1 rounded font-medium"
                   >
                     Update
                   </Link>

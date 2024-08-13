@@ -85,7 +85,7 @@ const Login = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-2 justify-center lg:items-center lg:max-w-screen-xl mx-auto border rounded-md shadow-sm sm:p-10  lg:mt-6">
+    <div className="grid lg:grid-cols-2 justify-center lg:items-center lg:max-w-screen-xl mx-auto sm:p-10  lg:mt-6">
       <div>
         <Lottie animationData={LottieLogin}></Lottie>
       </div>

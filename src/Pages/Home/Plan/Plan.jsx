@@ -11,7 +11,7 @@ const Plan = () => {
   return (
     <div className="bg-blue-400">
       <div className="container px-6 py-14 mx-auto ">
-        <div className="xl:items-center xl:-mx-10 xl:flex">
+        <div className="xl:items-center xl:-mx-10 xl:flex font-uiFont">
           <div className="flex flex-col items-center  xl:items-start xl:mx-10">
             <h1 className="text-2xl font-medium text-gray-800 capitalize lg:text-3xl dark:text-white">
               Our Pricing Plan
@@ -33,7 +33,7 @@ const Plan = () => {
             >
               <Link
                 to="/subscription"
-                className="mx-1 bg-blue-600 p-2 px-2 text-white rounded-md capitalize font-semibold"
+                className="mx-1 bg-blue-600 p-2 px-2 text-white rounded-md capitalize font-bold"
               >
                 check more
               </Link>

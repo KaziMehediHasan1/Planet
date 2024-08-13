@@ -23,7 +23,7 @@ const Subscription = () => {
 
   return (
     <div className="bg-[#f7f9ff]">
-      <div className="max-w-screen-xl mx-auto  px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="max-w-screen-xl mx-auto  px-4 py-8 sm:px-6 sm:py-12 lg:px-8 font-uiFont">
         <Helmet>
           <title>Planet | Subscription</title>
         </Helmet>
@@ -38,10 +38,10 @@ const Subscription = () => {
             <div className="hero-overlay bg-opacity-70"></div>
             <div className="hero-content text-neutral-content text-center">
               <div className="max-w-md">
-                <h1 className="mb-5 text-2xl font-semibold">
+                <h1 className="mb-5 text-2xl font-semibold ">
                   Stay Informed with Planet's Premium Subscription
                 </h1>
-                <p>
+                <p className="text-sm font-medium">
                   Unlock a world of in-depth journalism with Planet's Premium
                   Subscription. Enjoy unlimited access to exclusive articles,
                   insightful analyses, and expert opinions. Stay ahead with the

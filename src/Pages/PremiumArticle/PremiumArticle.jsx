@@ -10,6 +10,7 @@ import {
   Strong,
   Text,
 } from "@radix-ui/themes/dist/cjs/index.js";
+import { NavLink } from "react-router-dom";
 
 const PremiumArticle = () => {
   const [articles, isLoading, error] = useArticles();
@@ -34,33 +35,35 @@ const PremiumArticle = () => {
       <Helmet>
         <title>Planet | Premium-Articles</title>
       </Helmet>
-      <div className="pt-28 md:max-w-screen-2xl md:mx-auto ">
-        <div className=" border border-gray-400 shadow-lg rounded-md px-4">
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 lg:gap-2 sm:gap-5 mt-14">
+      <div className="pt-28 md:max-w-screen-2xl md:mx-auto">
+        <div className=" rounded-md px-4">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 lg:gap-2 md:gap-5 mt-14 font-uiFont mx-8 md:mx-0">
             {approvedArticles?.map(
               (article) =>
                 article?.premium === "isPremium" && (
-                  <Box className="w-80 h-[480px]"   data-aos="fade-bottom">
-                    <Card size="2" className="w-80 h-[290px]">
-                      <Inset clip="padding-box" side="top" pb="current">
-                        <img
-                          src={article?.image}
-                          alt="Bold typography"
-                          style={{
-                            display: "block",
-                            objectFit: "cover",
-                            width: "100%",
-                            height: 140,
-                            backgroundColor: "var(--gray-5)",
-                          }}
-                        />
-                      </Inset>
-                      <Text className="" as="p" size="3">
-                        <Strong>{article?.title.slice(0, 40)}</Strong>{" "}
-                        {article?.Description.slice(0, 80)}
-                      </Text>
-                    </Card>
-                  </Box>
+                  <NavLink to={`/articleDetails/${article?._id}`}>
+                    <Box className="w-80 h-[480px]" data-aos="fade-bottom">
+                      <Card size="2" className="w-80 h-[290px]">
+                        <Inset clip="padding-box" side="top" pb="current">
+                          <img
+                            src={article?.image}
+                            alt="Bold typography"
+                            style={{
+                              display: "block",
+                              objectFit: "cover",
+                              width: "100%",
+                              height: 140,
+                              backgroundColor: "var(--gray-5)",
+                            }}
+                          />
+                        </Inset>
+                        <Text as="p" size="3">
+                          <Strong>{article?.title.slice(0, 40)}</Strong>{" "}
+                          {article?.Description.slice(0, 80)}
+                        </Text>
+                      </Card>
+                    </Box>
+                  </NavLink>
                 )
             )}
           </div>

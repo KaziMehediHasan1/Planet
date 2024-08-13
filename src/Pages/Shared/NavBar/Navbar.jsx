@@ -34,11 +34,11 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="flex justify-between px-8 fixed z-10 w-full items-center  bg-gray-200 font-primaryFont md:px-14 py-2 shadow-sm-light shadow-fuchsia-200">
+    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 shadow-sm-light shadow-fuchsia-200 bg-yellow-50">
       <div className="lg:ml-5">
         <Link
           to="/"
-          className="lg:text-4xl text-2xl cursor-pointer md:font-bold font-semibold"
+          className="lg:text-3xl text-2xl cursor-pointer md:font-bold font-uiFont"
         >
           Planet
         </Link>
@@ -130,23 +130,20 @@ const Navbar = () => {
             {user ? (
               <Link
                 onClick={handleSignOut}
-                className="font-medium bg-blue-500 text-white px-4 py-2 rounded-lg hover:scale-110 duration-200"
+                className="font-medium bg-[#304483] text-white px-4 py-2 rounded-lg"
               >
                 Sign Out
               </Link>
             ) : (
               <Link
                 to="/register"
-                className="font-medium hover:scale-110 duration-200 bg-blue-500 px-4 py-2 rounded-lg text-white"
+                className="font-medium bg-[#1e294b] px-4 py-2 rounded-lg text-white"
               >
                 Sign Up
               </Link>
             )}
           </ul>
-          <Link
-            to="/profile"
-            className="font-medium hover:scale-110 duration-200 hover:rotate-3"
-          >
+          <Link to="/profile" className="font-medium">
             {user ? (
               <img
                 src={user?.photoURL}
@@ -172,7 +169,7 @@ const Navbar = () => {
             {nav ? <FaTimes size={30}></FaTimes> : <FaBars size={30}></FaBars>}
             {nav && (
               <div>
-                <ul className="flex space-y-2 text-white  flex-col justify-center mt-20 p-6 bg-blue-400 items-center absolute top-0 left-36 rounded-md">
+                <ul className="flex space-y-4 text-white  flex-col justify-center mt-20 p-14 bg-black items-center absolute top-0 left-36 rounded-md">
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
@@ -255,14 +252,14 @@ const Navbar = () => {
                   {user ? (
                     <Link
                       onClick={handleSignOut}
-                      className="font-medium bg-blue-500 text-white px-4 py-2 rounded-lg hover:scale-110 duration-200"
+                      className="font-medium bg-[#1e294b] text-white px-4 py-2 rounded-lg"
                     >
                       Sign Out
                     </Link>
                   ) : (
                     <Link
                       to="/register"
-                      className="font-medium hover:scale-110 duration-200 bg-blue-500 px-4 py-2 rounded-lg text-white"
+                      className="font-medium  bg-[#1e294b] px-4 py-2 rounded-lg text-white"
                     >
                       Sign Up
                     </Link>
@@ -273,7 +270,7 @@ const Navbar = () => {
           </div>
           <Link
             to="/profile"
-            className="font-medium md:hidden ml-4 hover:scale-110 duration-200 hover:rotate-3"
+            className="font-medium md:hidden ml-4 "
           >
             {user ? (
               <img

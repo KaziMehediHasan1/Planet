@@ -32,12 +32,12 @@ const AllArticles = () => {
     (article) => article?.status === "Approved"
   );
   // readmore button
-  const handleReadMore = async (id) => {
-    navigate(`/articleDetails/${id}`);
-    await axiosSecure.put(`/viewCount/${id}`).then((res) => {
-      console.log(res);
-    });
-  };
+  // const handleReadMore = async (id) => {
+  //   navigate(`/articleDetails/${id}`);
+  //   await axiosSecure.put(`/viewCount/${id}`).then((res) => {
+  //     console.log(res);
+  //   });
+  // };
 
   // search field...
   const handleSearch = (e) => {
@@ -59,7 +59,7 @@ const AllArticles = () => {
       </Helmet>
       <form
         onChange={handleSearch}
-        className="space-y-5 flex justify-center mb-6"
+        className="space-y-5 flex justify-center mb-6 font-uiFont"
       >
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -75,9 +75,9 @@ const AllArticles = () => {
           />
         </div>
       </form>
-      <div className=" md:max-w-screen-2xl md:mx-auto border border-gray-400 shadow-lg rounded-md">
+      <div className=" md:max-w-screen-2xl md:mx-auto rounded-md">
         <div
-          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0"
+          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 font-uiFont"
           data-aos="fade-right"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
@@ -88,36 +88,32 @@ const AllArticles = () => {
                 ? item
                 : item.title.toLowerCase().includes(search);
             })
-            .map((article) =>
-              article?.premium === "isPremium" ? (
-                <motion.div whileHover={{ scale: 1.1 }}>
-                  <NavLink
-                    to={`/articleDetails/${article?._id}`}
-                    className="card bg-base-100 w-96 h-[480px] shadow-xl"
-                  >
-                    <figure>
-                      <img src={article?.image} alt="Shoes" />
-                    </figure>
-                    <div className="card-body">
-                      <h2 className="card-title">{article?.title}</h2>
-                      <p>{article?.Description.slice(0, 120)}</p>
-                      <div className="card-title flex justify-between">
-                        <h1 className="text-sm text-green-400">
-                          {article?.publisher}
+            .map((article) => (
+              <motion.div whileHover={{ scale: 1.1 }}>
+                <NavLink
+                  to={`/articleDetails/${article?._id}`}
+                  className="card bg-base-100 w-96 h-[480px] shadow-xl mx-6 md:mx-0"
+                >
+                  <figure>
+                    <img src={article?.image} alt="Shoes" />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{article?.title}</h2>
+                    <p>{article?.Description.slice(0, 120)}</p>
+                    <div className="card-title flex justify-between">
+                      <h1 className="text-sm text-green-400">
+                        {article?.publisher}
+                      </h1>
+                      {article?.premium === "isPremium" && (
+                        <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
+                          Premium
                         </h1>
-                        {article?.premium === "isPremium" && (
-                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
-                            Premium
-                          </h1>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </NavLink>
-                </motion.div>
-              ) : (
-                ""
-              )
-            )}
+                  </div>
+                </NavLink>
+              </motion.div>
+            ))}
         </div>
       </div>
     </div>

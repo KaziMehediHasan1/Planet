@@ -16,9 +16,9 @@ const AllPublisher = () => {
   return (
     <div>
       <section className=" p-28">
-        <h2 className="text-2xl font-semibold text-center capitalize lg:text-4xl dark:text-white">
+        <h2 className="text-2xl font-semibold text-center capitalize lg:text-4xl dark:text-white font-uiFont">
           Publishers{" "}
-          <span className="text-bold text-green-500">
+          <span className="text-bold text-green-500 font-uiFont">
             <Typewriter
               words={[
                 "IndiaTv",
@@ -32,7 +32,7 @@ const AllPublisher = () => {
           <Cursor></Cursor>
         </h2>
         <div className="md:max-w-screen-xl mx-auto px-6 py-8 ">
-          <p className="text-center">
+          <p className="text-center font-uiFont font-medium">
             Planet collaborates with a wide range of publishers to bring you the
             latest news and insights. From global news agencies to independent
             journalists, we ensure diverse and comprehensive coverage. Our
@@ -53,7 +53,7 @@ const AllPublisher = () => {
                   alt="avatar"
                 />
 
-                <h3 className="text-lg mt-5 font-medium text-black  dark:text-gray-200">
+                <h3 className="text-lg mt-5 font-medium text-black  dark:text-gray-200 font-uiFont">
                   {publisher?.name}
                 </h3>
               </div>

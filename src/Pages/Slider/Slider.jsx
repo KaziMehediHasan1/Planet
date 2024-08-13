@@ -10,7 +10,7 @@ const Slider = () => {
 
   return (
     <Carousel>
-      {sortedArticles?.map((article) => (
+      {sortedArticles?.slice(0, 6).map((article) => (
         <SliderCard key={article?._id} article={article}></SliderCard>
       ))}
     </Carousel>
