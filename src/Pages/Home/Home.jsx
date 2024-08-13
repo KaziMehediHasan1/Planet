@@ -13,10 +13,12 @@ import "aos/dist/aos.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import usePayment from "../../hooks/Payment/usePayment";
+import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [articles, isLoading] = useArticles();
   const [payment, refetch] = usePayment();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const [premiumUser, setPremiumUser] = useState();
   if (isLoading) {
@@ -37,12 +39,12 @@ const Home = () => {
     setPremiumUser(isUserPremium);
     refetch();
   }, [premiumUser]);
-  const handleDetails = (e) => {
-    if (premiumUser) {
-      navigate(`/articleDetails/${e}`);
-    } else {
-      navigate("/subscription");
-    }
+
+  const handleDetails = async (e) => {
+    navigate(`/articleDetails/${e}`);
+    await axiosSecure.put(`/viewCount/${e}`).then((res) => {
+      console.log(res);
+    });
   };
   return (
     <div className="bg-cyan-100">
@@ -83,7 +85,7 @@ const Home = () => {
                             src={item?.image}
                             alt="Shoes"
                           />
-                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium">
+                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
                             Premium
                           </h1>
                         </figure>

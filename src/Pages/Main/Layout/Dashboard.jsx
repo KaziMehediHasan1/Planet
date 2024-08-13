@@ -14,7 +14,7 @@ const Dashboard = () => {
       <Helmet>
         <title>Planet | Dashboard</title>
       </Helmet>
-      <div>
+      <div className="font-uiFont">
         <button
           data-drawer-target="logo-sidebar"
           data-drawer-toggle="logo-sidebar"
@@ -47,10 +47,10 @@ const Dashboard = () => {
             <Link to="/" className="flex items-center ps-2.5 mb-5">
               <img
                 src={user?.photoURL}
-                className="h-9 w-9 me-3 rounded-full"
+                className="h-9 w-9 me-3 rounded-full ring ring-primary"
                 alt="Planet"
               />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-purple-800">
                 Home
               </span>
             </Link>

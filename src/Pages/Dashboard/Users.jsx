@@ -87,7 +87,7 @@ const Users = () => {
               <td className="pl-10">{index + 1}</td>
               <td>
                 <img
-                  className="w-10 h-10 rounded-full"
+                  className="w-10 h-10 rounded-full ring"
                   src={user?.image}
                   alt={user?.name}
                 />

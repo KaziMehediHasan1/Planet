@@ -34,24 +34,24 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 shadow-sm-light shadow-fuchsia-200 bg-yellow-50">
-      <div className="lg:ml-5">
+    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 bg-[#40538b]">
+      <div>
         <Link
           to="/"
-          className="lg:text-3xl text-2xl cursor-pointer md:font-bold font-uiFont"
+          className="lg:text-4xl text-2xl cursor-pointer md:font-bold font-uiFont text-white "
         >
           Planet
         </Link>
       </div>
       <div>
         {/* md to lg  device */}
-        <div className="md:flex items-center hidden sm:text-xs lg:text-[17px]">
+        <div className="md:flex items-center hidden sm:text-xs lg:text-[17px] text-white">
           <ul className="flex justify-center items-center md:space-x-[12px] lg:space-x-10 ml-4 cursor-pointer px-4">
             <NavLink
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "font-medium hover:scale-110 duration-500 border-b-2 border-black"
+                  ? "font-medium hover:scale-110 duration-500 border-b-2 border-white"
                   : "font-medium hover:scale-110 duration-200"
               }
             >
@@ -61,7 +61,7 @@ const Navbar = () => {
               to="/add-articles"
               className={({ isActive }) =>
                 isActive
-                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                   : "font-medium hover:scale-110 duration-200"
               }
             >
@@ -71,7 +71,7 @@ const Navbar = () => {
               to="/all-articles"
               className={({ isActive }) =>
                 isActive
-                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                   : "font-medium hover:scale-110 duration-200"
               }
             >
@@ -81,7 +81,7 @@ const Navbar = () => {
               to="/subscription"
               className={({ isActive }) =>
                 isActive
-                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                   : "font-medium hover:scale-110 duration-200"
               }
             >
@@ -94,7 +94,7 @@ const Navbar = () => {
                   to="/dashboard"
                   className={({ isActive }) =>
                     isActive
-                      ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                      ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                       : "font-medium hover:scale-110 duration-200"
                   }
                 >
@@ -106,7 +106,7 @@ const Navbar = () => {
                 to="/my-articles"
                 className={({ isActive }) =>
                   isActive
-                    ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                    ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                     : "font-medium hover:scale-110 duration-200"
                 }
               >
@@ -120,7 +120,7 @@ const Navbar = () => {
               to="/premiumArticles"
               className={({ isActive }) =>
                 isActive
-                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                  ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                   : "font-medium hover:scale-110 duration-200"
               }
             >
@@ -143,18 +143,18 @@ const Navbar = () => {
               </Link>
             )}
           </ul>
-          <Link to="/profile" className="font-medium">
+          <Link to="/profile" className="font-medium ">
             {user ? (
               <img
                 src={user?.photoURL}
                 alt="User-Profile"
-                className="rounded-full w-12 h-12"
+                className="rounded-full w-12 h-12  ring-offset-base-100  ring ring-offset-2"
               />
             ) : (
               <img
                 src={userProfile}
                 alt="User-Profile"
-                className="rounded-full w-12 h-12"
+                className="rounded-full w-12 h-12  ring-offset-base-100  ring ring-offset-2"
               />
             )}
           </Link>
@@ -174,7 +174,7 @@ const Navbar = () => {
                     to="/"
                     className={({ isActive }) =>
                       isActive
-                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
                   >
@@ -184,7 +184,7 @@ const Navbar = () => {
                     to="/add-articles"
                     className={({ isActive }) =>
                       isActive
-                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
                   >
@@ -194,7 +194,7 @@ const Navbar = () => {
                     to="/all-articles"
                     className={({ isActive }) =>
                       isActive
-                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
                   >
@@ -204,7 +204,7 @@ const Navbar = () => {
                     to="/subscription"
                     className={({ isActive }) =>
                       isActive
-                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
                   >
@@ -217,7 +217,7 @@ const Navbar = () => {
                         to="/dashboard"
                         className={({ isActive }) =>
                           isActive
-                            ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                            ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                             : "font-medium hover:scale-110 duration-200"
                         }
                       >
@@ -229,7 +229,7 @@ const Navbar = () => {
                       to="/my-articles"
                       className={({ isActive }) =>
                         isActive
-                          ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                          ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                           : "font-medium hover:scale-110 duration-200"
                       }
                     >
@@ -243,7 +243,7 @@ const Navbar = () => {
                     to="/premiumArticles"
                     className={({ isActive }) =>
                       isActive
-                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-black hover:-border-b-2"
+                        ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
                   >
@@ -268,10 +268,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <Link
-            to="/profile"
-            className="font-medium md:hidden ml-4 "
-          >
+          <Link to="/profile" className="font-medium md:hidden ml-4 ">
             {user ? (
               <img
                 src={user?.photoURL}

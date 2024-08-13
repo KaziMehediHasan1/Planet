@@ -23,7 +23,7 @@ const Profile = () => {
       <div className="w-full md:w-[500px] md:h-[450px] sm:max-w-sm md:max-w-screen-xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col py-10 justify-center my-10 items-center pb-10 font-uiFont">
           <img
-            className="w-24 h-24 mb-3 rounded-full shadow-lg"
+            className="w-24 h-24 mb-3 rounded-full shadow-lg ring-offset-base-100  ring ring-offset-2"
             src={user?.photoURL}
             alt={user?.displayName}
           />

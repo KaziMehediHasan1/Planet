@@ -31,13 +31,13 @@ const AllArticles = () => {
   const approvedArticles = articles?.filter(
     (article) => article?.status === "Approved"
   );
-  // readmore button
-  // const handleReadMore = async (id) => {
-  //   navigate(`/articleDetails/${id}`);
-  //   await axiosSecure.put(`/viewCount/${id}`).then((res) => {
-  //     console.log(res);
-  //   });
-  // };
+  // read-more button
+  const handleReadMore = async (id) => {
+    navigate(`/articleDetails/${id}`);
+    await axiosSecure.put(`/viewCount/${id}`).then((res) => {
+      console.log(res);
+    });
+  };
 
   // search field...
   const handleSearch = (e) => {
@@ -71,7 +71,7 @@ const AllArticles = () => {
             type="search"
             name="search"
             placeholder="Search..."
-            className="w-96 mx-auto py-2 pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600"
+            className="w-96 mx-auto py-2 pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600 border-2 border-cyan-600"
           />
         </div>
       </form>
@@ -90,12 +90,18 @@ const AllArticles = () => {
             })
             .map((article) => (
               <motion.div whileHover={{ scale: 1.1 }}>
-                <NavLink
-                  to={`/articleDetails/${article?._id}`}
-                  className="card bg-base-100 w-96 h-[480px] shadow-xl mx-6 md:mx-0"
-                >
-                  <figure>
-                    <img src={article?.image} alt="Shoes" />
+                <div className="card bg-base-100 w-96 h-[480px] shadow-xl mx-6 md:mx-0">
+                  <figure className="relative">
+                    <img
+                      className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
+                      src={article?.image}
+                      alt="Shoes"
+                    />
+                    {article?.premium === "isPremium" && (
+                      <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
+                        Premium
+                      </h1>
+                    )}
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title">{article?.title}</h2>
@@ -104,14 +110,16 @@ const AllArticles = () => {
                       <h1 className="text-sm text-green-400">
                         {article?.publisher}
                       </h1>
-                      {article?.premium === "isPremium" && (
-                        <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md">
-                          Premium
-                        </h1>
-                      )}
+
+                      <button
+                        onClick={() => handleReadMore(article?._id)}
+                        className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300 font-uiFont font-semibold"
+                      >
+                        Read
+                      </button>
                     </div>
                   </div>
-                </NavLink>
+                </div>
               </motion.div>
             ))}
         </div>

@@ -28,10 +28,9 @@ const DashPublisher = () => {
     }
   };
   return (
-    <div className="max-w-screen-lg mx-auto">
-      <h1 className="text-center text-4xl font-semibold mt-10">Add Planet Articles Publishers</h1>
-      <div className="border p-5 mt-10 shadow-md shadow-cyan-400">
-        <img src={img} alt="" />
+    <div className="max-w-screen-lg mx-auto font-uiFont">
+      <div className=" p-5 mt-10 ">
+        <img className="ml-32" src={img} alt="" />
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -41,7 +40,7 @@ const DashPublisher = () => {
             <label className="text-xl font-semibold">Publisher Name</label>
             <input
               {...register("name", { required: true })}
-              className="border-2 p-2 border-gray-200 rounded-md"
+              className=" p-2  rounded-md border border-cyan-400"
               placeholder="Publisher Name"
             />
           </div>
@@ -53,7 +52,7 @@ const DashPublisher = () => {
                 type="file"
                 {...register("image", { required: true })}
                 placeholder="image"
-                className="w-full bg-blue-100  rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-sky-600 border-gray-300"
+                className="w-full bg-blue-100  rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-sky-600 border-gray-300 "
               />
             </div>
           </div>
