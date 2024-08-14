@@ -3,7 +3,7 @@ import { MdDeleteForever } from "react-icons/md";
 import swal from "sweetalert";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 const DashArticles = () => {
-  const [articles, refetch, isLoading, error] = useArticles();
+  const [articles, refetch, isLoading] = useArticles();
   const axiosSecure = useAxiosSecure();
   const handleDeleteArticles = (id) => {
     swal({
@@ -49,6 +49,7 @@ const DashArticles = () => {
       }
     });
   };
+
   return (
     <div className="md:ml-16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg font-uiFont">
@@ -88,9 +89,9 @@ const DashArticles = () => {
                   />
                 </th>
                 <th>
-                  <div className="ps-3 text-base font-semibold">
+                  <h2 className="ps-3 text-base font-semibold">
                     {article.title?.slice(0, 80)}..
-                  </div>
+                  </h2>
                 </th>
 
                 <td className="px-6 py-4">

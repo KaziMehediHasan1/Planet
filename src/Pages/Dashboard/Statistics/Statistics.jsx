@@ -1,9 +1,16 @@
 import Chart from "react-google-charts";
 import useArticles from "../../../hooks/useArticles/useArticles";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 const Statistics = () => {
   const [articles] = useArticles();
-  //
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      delay: 500,
+    });
+  }, []);
 
   // pei chart..
   const publisherA = articles?.filter(
@@ -67,7 +74,7 @@ const Statistics = () => {
 
   // bar chart..
   // get viewCount, article owner, article title..
-  const sexArticle = articles?.slice(0, 6).filter((barA) => barA.viewCount);
+  const sexArticle = articles?.slice(0, 6)?.filter((barA) => barA?.viewCount);
   const filter = [
     ["article", "author", "views"],
     ...sexArticle?.map((item) => [item?.title, item?.owner, item?.viewCount]),
@@ -100,7 +107,8 @@ const Statistics = () => {
   };
 
   return (
-    <div>
+    <div data-aos="fade-up"
+    data-aos-anchor-placement="top-bottom">
       <Chart
         chartType="PieChart"
         data={data}

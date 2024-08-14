@@ -5,22 +5,22 @@ import Plan from "./Plan/Plan";
 import Slider from "../Slider/Slider";
 import Question from "./Question/Question";
 import Subscribe from "./NewSubscribe/Subscribe";
-import useArticles from "../../hooks/useArticles/useArticles";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import usePayment from "../../hooks/Payment/usePayment";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
+import useArticles from "../../hooks/useArticles/useArticles";
+import { toast } from "react-toastify";
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const [articles, isLoading] = useArticles();
-  const [payment, refetch] = usePayment();
+  const [payment, refetch, isLoading] = usePayment();
   const axiosSecure = useAxiosSecure();
+  const [articles] = useArticles();
   const navigate = useNavigate();
-  const [premiumUser, setPremiumUser] = useState();
   if (isLoading) {
     <p>loading...</p>;
   }
@@ -32,19 +32,21 @@ const Home = () => {
     });
   }, []);
 
-  // is user Subscriber..
-  useEffect(() => {
-    const subscriber = payment?.map((sub) => sub?.email);
-    const isUserPremium = !!subscriber === !!user?.email;
-    setPremiumUser(isUserPremium);
-    refetch();
-  }, [premiumUser]);
-
-  const handleDetails = async (e) => {
-    navigate(`/articleDetails/${e}`);
-    await axiosSecure.put(`/viewCount/${e}`).then((res) => {
-      console.log(res);
-    });
+  // Check if the user is a subscriber
+  const subscriber = payment?.some((sub) => sub.email === user?.email);
+  // console.log(subscriber);
+  const approvedArticles = articles?.filter(
+    (article) => article?.status === "Approved"
+  );
+  const handleDetails = async (e, isPremium) => {
+    if (subscriber || !isPremium) {
+      navigate(`/articleDetails/${e}`);
+      await axiosSecure.put(`/viewCount/${e}`).then((res) => {
+        console.log(res);
+      });
+    } else if (!user) {
+      toast.error("Please buy a subscription plan!");
+    }
   };
   return (
     <div className="bg-cyan-100">
@@ -69,7 +71,7 @@ const Home = () => {
           <section className=" dark:bg-gray-900">
             <div className="container px-6 py-10 mx-auto">
               <div className="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-3 md:grid-cols-2">
-                {articles?.slice(0, 6).map((item) => (
+                {approvedArticles?.slice(0, 6).map((item) => (
                   <div
                     className=" md:max-w-screen-2xl md:mx-auto "
                     data-aos="fade-right fade-left"
@@ -85,9 +87,12 @@ const Home = () => {
                             src={item?.image}
                             alt="Shoes"
                           />
-                          <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
-                            Premium
-                          </h1>
+
+                          {item?.premium === "isPremium" && (
+                            <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
+                              Premium
+                            </h1>
+                          )}
                         </figure>
                         <div className="card-body">
                           <h2 className="card-title font-uiFont">
@@ -99,8 +104,30 @@ const Home = () => {
 
                           <div className="card-title">
                             <button
-                              onClick={() => handleDetails(item?._id)}
-                              className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300 font-uiFont font-semibold"
+                              style={{
+                                cursor:
+                                  !subscriber && item?.premium === "isPremium"
+                                    ? "not-allowed"
+                                    : "pointer",
+                                pointerEvents:
+                                  !subscriber && item?.premium === "isPremium"
+                                    ? "none"
+                                    : "auto",
+                              }}
+                              disabled={
+                                !subscriber && item?.premium === "isPremium"
+                              }
+                              onClick={() =>
+                                handleDetails(
+                                  item?._id,
+                                  item?.premium === "isPremium"
+                                )
+                              }
+                              className={`text-sm text-green-800 border-2 px-6 py-2 rounded-md font-uiFont font-semibold ${
+                                !subscriber && item?.premium === "isPremium"
+                                  ? "bg-slate-300 text-green-800"
+                                  : "bg-gray-800 text-white cursor-not-allowed"
+                              }`}
                             >
                               Read
                             </button>

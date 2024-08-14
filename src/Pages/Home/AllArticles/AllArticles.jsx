@@ -5,38 +5,40 @@ import { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import { motion } from "framer-motion";
+import usePayment from "../../../hooks/Payment/usePayment";
 const AllArticles = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const { data: payment, refetch } = useQuery({
-    queryKey: ["payment", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/payment/${user?.email}`);
-      return res.data;
-    },
-  });
-  refetch();
+  const [payment] = usePayment();
 
   const [articles, isLoading, error] = useArticles();
   const [search, setSearch] = useState("");
 
+  if (isLoading) {
+    <p>Loading...</p>;
+  }
   if (error) {
     <span>Error:{error.message}</span>;
   }
+  // Check if the user is a subscriber
+  const subscriber = payment?.some((sub) => sub.email === user?.email);
+  // console.log(subscriber);
   const approvedArticles = articles?.filter(
     (article) => article?.status === "Approved"
   );
-  // read-more button
-  const handleReadMore = async (id) => {
-    navigate(`/articleDetails/${id}`);
-    await axiosSecure.put(`/viewCount/${id}`).then((res) => {
-      console.log(res);
-    });
+  const handleDetails = async (e, isPremium) => {
+    if (subscriber || !isPremium) {
+      navigate(`/articleDetails/${e}`);
+      await axiosSecure.put(`/viewCount/${e}`).then((res) => {
+        console.log(res);
+      });
+    } else if (!user) {
+      toast.error("Please buy a subscription plan!");
+    }
   };
 
   // search field...
@@ -75,52 +77,81 @@ const AllArticles = () => {
           />
         </div>
       </form>
+
       <div className=" md:max-w-screen-2xl md:mx-auto rounded-md">
-        <div
-          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 mt-14 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 font-uiFont"
-          data-aos="fade-right"
-          data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
-        >
+        <div className="grid grid-cols-1 gap-8 mt-14 lg:grid-cols-3 md:grid-cols-2">
           {approvedArticles
             ?.filter((item) => {
               return search.toLowerCase() === ""
                 ? item
                 : item.title.toLowerCase().includes(search);
             })
-            .map((article) => (
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <div className="card bg-base-100 w-96 h-[480px] shadow-xl mx-6 md:mx-0">
-                  <figure className="relative">
-                    <img
-                      className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
-                      src={article?.image}
-                      alt="Shoes"
-                    />
-                    {article?.premium === "isPremium" && (
-                      <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
-                        Premium
-                      </h1>
-                    )}
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title">{article?.title}</h2>
-                    <p>{article?.Description.slice(0, 120)}</p>
-                    <div className="card-title flex justify-between">
-                      <h1 className="text-sm text-green-400">
-                        {article?.publisher}
-                      </h1>
+            .map((item) => (
+              <div
+                className=" md:max-w-screen-2xl md:mx-auto "
+                data-aos="fade-right fade-left"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 mx-8"
+                >
+                  <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl">
+                    <figure className="relative">
+                      <img
+                        className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
+                        src={item?.image}
+                        alt="Shoes"
+                      />
 
-                      <button
-                        onClick={() => handleReadMore(article?._id)}
-                        className="text-sm text-green-800 border-2 px-6 py-2 rounded-md bg-slate-300 font-uiFont font-semibold"
-                      >
-                        Read
-                      </button>
+                      {item?.premium === "isPremium" && (
+                        <h1 className="text-sm border p-2 bg-pink-500 text-white rounded-md absolute top-5 left-6 font-uiFont font-medium ring-base-50  ring ">
+                          Premium
+                        </h1>
+                      )}
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title font-uiFont">{item?.title}</h2>
+                      <p className="font-uiFont font-medium">
+                        {item?.Description?.slice(0, 120)}
+                      </p>
+
+                      <div className="card-title flex justify-between">
+                        <h1 className="text-sm text-green-400 hover:underline font-uiFont">
+                          {item?.publisher}
+                        </h1>
+                        <button
+                          style={{
+                            cursor:
+                              !subscriber && item?.premium === "isPremium"
+                                ? "not-allowed"
+                                : "pointer",
+                            pointerEvents:
+                              !subscriber && item?.premium === "isPremium"
+                                ? "none"
+                                : "auto",
+                          }}
+                          disabled={
+                            !subscriber && item?.premium === "isPremium"
+                          }
+                          onClick={() =>
+                            handleDetails(
+                              item?._id,
+                              item?.premium === "isPremium"
+                            )
+                          }
+                          className={`text-sm text-green-800 border-2 px-6 py-2 rounded-md font-uiFont font-semibold ${
+                            !subscriber && item?.premium === "isPremium"
+                              ? "bg-slate-300 text-green-800"
+                              : "bg-gray-800 text-white cursor-not-allowed"
+                          }`}
+                        >
+                          Read
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             ))}
         </div>
       </div>

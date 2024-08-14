@@ -81,7 +81,7 @@ export const router = createBrowserRouter([
         path: "/payment-page",
         element: (
           <PrivateRoutes>
-           <PaymentDetails></PaymentDetails>
+            <PaymentDetails></PaymentDetails>
           </PrivateRoutes>
         ),
       },
@@ -148,6 +148,7 @@ export const router = createBrowserRouter([
             <Users></Users>
           </AdminRoute>
         ),
+        loader: () => fetch(`${import.meta.env.VITE_SERVER_URL}/dashUser`),
       },
       {
         path: "DashMyArticles",
