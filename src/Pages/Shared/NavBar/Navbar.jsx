@@ -120,7 +120,7 @@ const Navbar = () => {
                       Dashboard
                     </NavLink>
                   </>
-                ) : user ? (
+                ) : user &&  (
                   <NavLink
                     to="/my-articles"
                     className={({ isActive }) =>
@@ -132,8 +132,6 @@ const Navbar = () => {
                   >
                     My Article
                   </NavLink>
-                ) : (
-                  ""
                 )}
 
                 <NavLink

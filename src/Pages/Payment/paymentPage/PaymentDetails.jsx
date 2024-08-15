@@ -1,32 +1,61 @@
-import React from "react";
+import React, { useContext } from "react";
 import usePayment from "../../../hooks/Payment/usePayment";
+import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 
 const PaymentDetails = () => {
   const [payment] = usePayment();
-  console.log(payment);
+  const { user } = useContext(AuthContext);
   return (
-    <div className="overflow-x-auto max-w-screen-lg mx-auto md:px-5 lg:px-0">
-      <table className="table mt-28 bg-cyan-300">
-        {/* head */}
-        <thead>
-          <tr>
-            <th></th>
-            <th>Subscription type</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-          </tr>
-        </thead>
-        <tbody>
-          {payment?.map((item, index) => {
-            <tr key={item?._id}>
-              <th></th>
-              <td>{index + 1}</td>
-              <td>{item?.price}</td>
-              <td>Blue</td>
-            </tr>
-          })} 
-        </tbody>
-      </table>
+    <div className="overflow-x-auto max-w-screen-xl mx-auto md:px-5 lg:px-0">
+      <div className="container p-2 mx-auto sm:p-4 text-gray-800 mt-20 font-uiFont">
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-xs">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+              <col className="w-24" />
+            </colgroup>
+            <thead className="bg-gray-200 text-purple-800 rounded-sm">
+              <tr className="text-left">
+                <th className="p-3  text-center text-[18px]">User</th>
+                <th className="p-3  text-center text-[18px]">status</th>
+                <th className="p-3  text-center text-[18px]">Amount</th>
+                <th className="p-3  text-center text-[18px]">trans. ID</th>
+                <th className="p-3  text-center text-[18px]">End Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payment?.map(
+                (item) =>
+                  item.email === user?.email && (
+                    <tr className="border-b border-opacity-20 border-gray-300 bg-gray-50">
+                      <td className="p-3 text-center">
+                        <p className="text-[13px]">{item?.email}</p>
+                      </td>
+                      <td className="p-3 text-center">
+                        <p className="bg-blue-500 py-1 rounded-sm text-center text-white text-[13px]">
+                          {item?.status}
+                        </p>
+                      </td>
+                      <td className="p-3 text-center">
+                        <p className="text-[13px]">${item?.price}</p>
+                      </td>
+                      <td className="p-3 text-center">
+                        <p className="text-[13px]">{item?.transactionId}</p>
+                      </td>
+                      <td className="p-3 text-center">
+                        <p className="text-[13px]">{item?.transactionId}</p>
+                      </td>
+                    </tr>
+                  )
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

@@ -77,7 +77,7 @@ const Statistics = () => {
   const sexArticle = articles?.slice(0, 6)?.filter((barA) => barA?.viewCount);
   const filter = [
     ["article", "author", "views"],
-    ...sexArticle?.map((item) => [item?.title, item?.owner, item?.viewCount]),
+    ...(sexArticle ? sexArticle?.map((item) => [item?.title, item?.owner, item?.viewCount]) : []),
   ];
   const options2 = {
     title: "Article Views",

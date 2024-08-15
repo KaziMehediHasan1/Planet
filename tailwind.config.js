@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         uiFont: ["Open Sans", "sans-serif"],
+        stFont: ["Edu VIC WA NT Beginner", "cursive"],
       },
     },
   },

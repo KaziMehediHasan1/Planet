@@ -6,12 +6,16 @@ import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { Helmet } from "react-helmet";
+import { useLoaderData } from "react-router-dom";
+
+
 const Users = () => {
   const [users, refetch, isLoading] = useAllUsers();
+  const [countUser, setCountUser] = useState([]);
+  const { count } = useLoaderData();
   const axiosSecure = useAxiosSecure();
-  const [count, setCount] = useState();
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
   const numberOfPage = Math.ceil(count / itemsPerPage);
   const pages = [...Array(numberOfPage).keys()];
   const { user: Users, loading } = useContext(AuthContext);
@@ -21,13 +25,20 @@ const Users = () => {
   if (isLoading || loading) {
     return <p>Loading.....</p>;
   }
+
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/dashUser`).then((res) => {
-      res.json().then((data) => {
-        data?.map((item) => setCount(item?.count?.length));
-      });
-    });
-  }, []);
+    const fetchCount = async () => {
+      await fetch(
+        `${
+          import.meta.env.VITE_SERVER_URL
+        }/users?page=${currentPage}&size=${itemsPerPage}`
+      )
+        .then((res) => res.json())
+        .then((data) => setCountUser(data));
+    };
+    fetchCount()
+  }, [currentPage]);
+  
 
   const handleDeleteUser = (user) => {
     swal({
@@ -103,7 +114,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user, index) => (
+            {countUser?.map((user, index) => (
               <tr
                 key={user._id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -185,7 +196,7 @@ const Users = () => {
               " px-3 py-2 mx-1  transition-colors duration-300 transform bg-purple-900 rounded-md sm:inline dark:bg-gray-800  dark:hover:bg-blue-500 text-white dark:hover:text-gray-200"
             }
           >
-            {page}
+            {page + 1}
           </button>
         ))}
 

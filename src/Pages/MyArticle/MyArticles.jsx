@@ -43,28 +43,7 @@ const MyArticles = () => {
     });
   };
 
-  const handlePremium = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willUpdate) => {
-      if (willUpdate) {
-        axiosSecure.patch(`/articles/${id}`).then((res) => {
-          if (res.data.modifiedCount > 0) {
-            swal("Poof! Your imaginary file has been deleted!", {
-              icon: "success",
-            });
-          }
-          refetch();
-        });
-      } else {
-        swal("Your imaginary file is safe!");
-      }
-    });
-  };
+  
 
   return (
     <div className="p-10">
@@ -115,7 +94,7 @@ const MyArticles = () => {
                 </th>
                 <th>
                   <div className="ps-3 text-base font-semibold md:inline-table">
-                    {article?.title.slice(0,80)}..
+                    {article?.title.slice(0, 80)}..
                   </div>
                 </th>
                 <th className="px-6 py-4">
@@ -126,16 +105,11 @@ const MyArticles = () => {
                     Details
                   </Link>
                 </th>
-                <th className="px-6 py-4">
+                <th className="px-6 py-4 text-center">
                   {article?.premium === "isPremium" ? (
-                    <p className="p-1 rounded font-bold">isPremium</p>
+                    <p className="p-1 rounded font-bold text-center">Yes</p>
                   ) : (
-                    <button
-                      onClick={() => handlePremium(article?._id)}
-                      className="text-white p-1 rounded font-medium bg-green-400 "
-                    >
-                      Premium
-                    </button>
+                    <p className="text-center">No</p>
                   )}
                 </th>
                 <td className="px-6 py-4">

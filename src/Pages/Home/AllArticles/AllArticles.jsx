@@ -93,12 +93,12 @@ const AllArticles = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 mx-8"
+                  className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 mx-8 "
                 >
-                  <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl">
+                  <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl ">
                     <figure className="relative">
                       <img
-                        className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
+                        className="   object-cover object-center w-full  rounded-t-md h-72"
                         src={item?.image}
                         alt="Shoes"
                       />

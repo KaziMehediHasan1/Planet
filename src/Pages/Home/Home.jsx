@@ -31,7 +31,7 @@ const Home = () => {
     const timer = setTimeout(() => {
       // console.log("Modal should open now");
       setShowModal(true);
-    }, 1000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
@@ -108,7 +108,7 @@ const Home = () => {
                       <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl">
                         <figure className="relative">
                           <img
-                            className="object-cover object-center lg:w-full rounded-t-md lg:h-full "
+                            className="object-cover object-center lg:w-full rounded-t-md h-44 "
                             src={item?.image}
                             alt="Shoes"
                           />
@@ -174,10 +174,6 @@ const Home = () => {
               className="modal modal-bottom sm:modal-middle"
             >
               <div className="relative flex justify-center">
-                <button className="px-6 py-2 mx-auto tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                  Open Modal
-                </button>
-
                 <div
                   x-show="isOpen"
                   x-transition:enter="transition duration-300 ease-out"
@@ -212,7 +208,7 @@ const Home = () => {
                             Welcome to our Planet site
                           </h3>
 
-                          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                          <p className="mt-2 text-xl text-gray-500 dark:text-gray-400">
                             Stay updated with our latest posts and news.
                           </p>
                         </div>

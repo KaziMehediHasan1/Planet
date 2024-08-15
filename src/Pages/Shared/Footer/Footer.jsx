@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="px-6">
               <Link>
                 <h1 className="font-uiFont font-semibold text-4xl uppercase">
-                  <span className="text-blue-300 shadow-sm">P</span>lanet
+                  <span className="text-blue-400 shadow-md drop-shadow-lg">P</span>lanet
                 </h1>
               </Link>
 

@@ -135,11 +135,16 @@ export const router = createBrowserRouter([
             <DashArticles></DashArticles>
           </AdminRoute>
         ),
+        loader: () => fetch(`${import.meta.env.VITE_SERVER_URL}/articleCount`),
       },
 
       {
         path: "DashPublisher",
-        element: <DashPublisher></DashPublisher>,
+        element: (
+          <AdminRoute>
+            <DashPublisher></DashPublisher>
+          </AdminRoute>
+        ),
       },
       {
         path: "users",
@@ -148,11 +153,9 @@ export const router = createBrowserRouter([
             <Users></Users>
           </AdminRoute>
         ),
+        loader: () => fetch(`${import.meta.env.VITE_SERVER_URL}/dashUser`),
       },
-      {
-        path: "DashMyArticles",
-        element: <DashMyArticles></DashMyArticles>,
-      },
+      
     ],
   },
 ]);
