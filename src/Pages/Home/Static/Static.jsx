@@ -29,7 +29,7 @@ const Static = () => {
   // // premium user...
   useEffect(() => {
     setTimeout(() => {
-      if (premiumUser < payment.length) {
+      if (premiumUser < payment?.length) {
         setPremiumUser(premiumUser + 1);
       }
     });

@@ -148,7 +148,6 @@ export const router = createBrowserRouter([
             <Users></Users>
           </AdminRoute>
         ),
-        loader: () => fetch(`${import.meta.env.VITE_SERVER_URL}/dashUser`),
       },
       {
         path: "DashMyArticles",

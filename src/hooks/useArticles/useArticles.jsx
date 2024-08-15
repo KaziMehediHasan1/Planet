@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../AxiosPublic/useAxiosPublic";
 
-
 const useArticles = () => {
   const axiosPublic = useAxiosPublic();
-   const {
-    refetch,data: articles,
-    error,  
+  const {
+    data: articles,
+    refetch,
+    error,
     isLoading,
   } = useQuery({
     queryKey: ["articles"],
@@ -17,8 +17,9 @@ const useArticles = () => {
       return data.data;
     },
   });
- 
-  return [articles, refetch, isLoading,error];
+  
+
+  return [articles, refetch, isLoading, error];
 };
 
 export default useArticles;
