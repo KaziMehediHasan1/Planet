@@ -155,7 +155,6 @@ export const router = createBrowserRouter([
         ),
         loader: () => fetch(`${import.meta.env.VITE_SERVER_URL}/dashUser`),
       },
-      
     ],
   },
 ]);

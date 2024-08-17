@@ -4,6 +4,7 @@ import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 
 const PaymentDetails = () => {
   const [payment] = usePayment();
+  console.log(payment);
   const { user } = useContext(AuthContext);
   return (
     <div className="overflow-x-auto max-w-screen-xl mx-auto md:px-5 lg:px-0">
@@ -11,6 +12,7 @@ const PaymentDetails = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
             <colgroup>
+              <col />
               <col />
               <col />
               <col />
@@ -24,6 +26,7 @@ const PaymentDetails = () => {
                 <th className="p-3  text-center text-[18px]">status</th>
                 <th className="p-3  text-center text-[18px]">Amount</th>
                 <th className="p-3  text-center text-[18px]">trans. ID</th>
+                <th className="p-3  text-center text-[18px]">Started Date</th>
                 <th className="p-3  text-center text-[18px]">End Date</th>
               </tr>
             </thead>
@@ -47,7 +50,10 @@ const PaymentDetails = () => {
                         <p className="text-[13px]">{item?.transactionId}</p>
                       </td>
                       <td className="p-3 text-center">
-                        <p className="text-[13px]">{item?.transactionId}</p>
+                        <p className="text-[13px]">{ new Date (item?.date).toLocaleDateString()}</p>
+                      </td>
+                      <td className="p-3 text-center">
+                        <p className="text-[13px]">{ new Date (item?.date).toLocaleDateString()}</p>
                       </td>
                     </tr>
                   )

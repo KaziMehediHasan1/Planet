@@ -6,11 +6,14 @@ import "aos/dist/aos.css";
 import { motion } from "framer-motion";
 import usePayment from "../../hooks/Payment/usePayment";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 
 const PremiumArticle = () => {
   const [articles, isLoading, error] = useArticles();
   const [payment] = usePayment();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   if (isLoading) {
     <h1 className="text-black">Loading....</h1>;
@@ -28,6 +31,16 @@ const PremiumArticle = () => {
     });
   }, []);
 
+  const handleDetails = async (e, isPremium) => {
+    if (subscriber || !isPremium) {
+      navigate(`/articleDetails/${e}`);
+      await axiosSecure.put(`/viewCount/${e}`).then((res) => {
+        console.log(res);
+      });
+    } else if (!user) {
+      toast.error("Please buy a subscription plan!");
+    }
+  };
   const subscriber = payment?.some((sub) => sub.email === user?.email);
   return (
     <div className="pb-16">

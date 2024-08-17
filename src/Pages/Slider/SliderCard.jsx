@@ -14,7 +14,7 @@ const SliderCard = ({ article }) => {
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-uiFont font-semibold ">
-              {title}
+              {title?.slice(0,80)}..
             </h1>
             <p className="mb-5 font-uiFont font-medium">
               {Description?.slice(0, 150)}..

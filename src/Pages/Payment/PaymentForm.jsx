@@ -71,13 +71,13 @@ const PaymentForm = ({ id }) => {
           transactionId: paymentIntent.id,
           date: new Date(),
           planId: plan.find((item) => item?._id === id.id && item?._id),
-          status: "pending",
+          status: paymentIntent.status,
         };
         const res = await axiosSecure.post("/payment", payment);
         console.log(res.data);
         if (res.data?.insertedId) {
           swal("Good job!", "You payment success!", "success");
-          navigate("/premiumArticles");
+          navigate("/payment-page");
         }
       }
     }

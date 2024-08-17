@@ -43,8 +43,6 @@ const MyArticles = () => {
     });
   };
 
-  
-
   return (
     <div className="p-10">
       <div className="relative shadow-md sm:rounded-lg mt-16 overflow-x-auto">
@@ -68,6 +66,12 @@ const MyArticles = () => {
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Decline
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Decline reason
               </th>
 
               <th scope="col" className="px-6 py-3">
@@ -112,6 +116,7 @@ const MyArticles = () => {
                     <p className="text-center">No</p>
                   )}
                 </th>
+
                 <td className="px-6 py-4">
                   {article?.status === "Approved" ? (
                     <p className="font-bold text-green-800">Approved</p>
@@ -119,6 +124,49 @@ const MyArticles = () => {
                     <p className="text-red-700 font-bold">Pending..</p>
                   )}
                 </td>
+                <th className="text-center">
+                  <div className="ps-3 text-base font-semibold md:inline-table">
+                    {article?.text && (
+                      <p className="font-uiFont text-red-950 bg-green-200 px-2 rounded-md text-sm py-1">
+                        Decline
+                      </p>
+                    )}
+                  </div>
+                </th>
+                <th className="text-center">
+                  {article?.text && (
+                    <div>
+                      <button
+                        className="font-uiFont text-red-950 bg-green-200 px-2 py-1 rounded-md"
+                        onClick={() =>
+                          document.getElementById("my_modal_3").showModal()
+                        }
+                      >
+                        Decline
+                      </button>
+                      <dialog id="my_modal_3" className="modal">
+                        <div className="modal-box">
+                          <button
+                            onClick={() =>
+                              document.getElementById("my_modal_3").close()
+                            }
+                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                          >
+                            ✕
+                          </button>
+                          <form>
+                            <label className=" text-sm font-bold">
+                              Why Admin are not approved ?
+                            </label>
+                            <p className="mt-8 bg-blue-400 p-10 text-white rounded-md">
+                              {article?.text}
+                            </p>
+                          </form>
+                        </div>
+                      </dialog>
+                    </div>
+                  )}
+                </th>
                 <td
                   onClick={() => handleDeleteArticles(article?._id)}
                   className="px-6 py-4 cursor-pointer"

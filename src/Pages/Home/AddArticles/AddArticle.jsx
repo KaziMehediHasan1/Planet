@@ -4,23 +4,26 @@ import img from "../../../assets/addArticle.json";
 import swal from "sweetalert";
 import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import { Controller, useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import usePublisher from "../../../hooks/getPublisher/usePublisher";
 import Lottie from "lottie-react";
+import usePayment from "../../../hooks/Payment/usePayment";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddArticle = () => {
   const axiosPublic = useAxiosPublic();
+  const [normalUser, setPremiumUser] = useState(1);
   const [publisher, isLoading] = usePublisher();
+  const [payment] = usePayment();
+  console.log(payment);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useContext(AuthContext);
   const { register, handleSubmit, reset, control } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -35,6 +38,9 @@ const AddArticle = () => {
         publisher: data.publisher,
         tags: data.tags,
         owner: user?.email,
+        ownerName: user?.displayName,
+        ownerPic: user?.photoURL,
+        Date: new Date().toDateString(),
       };
       const articlesData = await axiosSecure.post("/articles", Articles);
       if (articlesData.data.insertedId) {
@@ -44,6 +50,10 @@ const AddArticle = () => {
       }
     }
   };
+
+  if (loading || isLoading) {
+    <p>Loading....</p>;
+  }
 
   return (
     <div>

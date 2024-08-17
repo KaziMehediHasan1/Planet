@@ -9,7 +9,7 @@ const useAllUsers = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["articles"],
+    queryKey: ["users"],
     queryFn: async () => {
       const data = await axiosSecure.get(
         `${import.meta.env.VITE_SERVER_URL}/users`,

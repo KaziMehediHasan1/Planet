@@ -7,11 +7,13 @@ import userProfile from "../../../assets/planet.jpg";
 import useAdmin from "../../../hooks/useAdmin";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import usePayment from "../../../hooks/Payment/usePayment";
 const Navbar = () => {
   const { user, Logout } = useContext(AuthContext);
   const [nav, setNav] = useState(false);
+  const [payment] = usePayment();
   const [isAdmin] = useAdmin();
-
+  const subscriber = payment?.some((sub) => sub.email === user?.email);
   const handleSignOut = () => {
     Logout()
       .then((result) => {
@@ -42,7 +44,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 bg-[#40538b]" >
+    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 bg-[#40538b]">
       <div>
         <Link
           to="/"
@@ -51,10 +53,12 @@ const Navbar = () => {
           Planet
         </Link>
       </div>
-      <div data-aos="fade-left"
-    data-aos-anchor="#example-anchor"
-    data-aos-offset="500"
-    data-aos-duration="500"> 
+      <div
+        data-aos="fade-left"
+        data-aos-anchor="#example-anchor"
+        data-aos-offset="500"
+        data-aos-duration="500"
+      >
         {/* md to lg  device */}
         <div className="md:flex items-center hidden sm:text-xs lg:text-[17px] text-white">
           <ul className="flex justify-center items-center md:space-x-[12px] lg:space-x-10 ml-4 cursor-pointer px-4">
@@ -67,7 +71,6 @@ const Navbar = () => {
                       ? "font-medium hover:scale-110 duration-500 border-b-2 border-white"
                       : "font-medium hover:scale-110 duration-200"
                   }
-                  
                 >
                   Home
                 </NavLink>
@@ -79,7 +82,6 @@ const Navbar = () => {
                       ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                       : "font-medium hover:scale-110 duration-200"
                   }
-                  
                 >
                   Add Article
                 </NavLink>
@@ -90,7 +92,6 @@ const Navbar = () => {
                       ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                       : "font-medium hover:scale-110 duration-200"
                   }
-                  
                 >
                   All Article
                 </NavLink>
@@ -101,7 +102,6 @@ const Navbar = () => {
                       ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                       : "font-medium hover:scale-110 duration-200"
                   }
-                  
                 >
                   Subscription
                 </NavLink>
@@ -115,36 +115,36 @@ const Navbar = () => {
                           ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                           : "font-medium hover:scale-110 duration-200"
                       }
-                      
                     >
                       Dashboard
                     </NavLink>
                   </>
-                ) : user &&  (
+                ) : (
+                  user && (
+                    <NavLink
+                      to="/my-articles"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
+                          : "font-medium hover:scale-110 duration-200"
+                      }
+                    >
+                      My Article
+                    </NavLink>
+                  )
+                )}
+                {subscriber && (
                   <NavLink
-                    to="/my-articles"
+                    to="/premiumArticles"
                     className={({ isActive }) =>
                       isActive
                         ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                         : "font-medium hover:scale-110 duration-200"
                     }
-                   
                   >
-                    My Article
+                    Premium Articles
                   </NavLink>
                 )}
-
-                <NavLink
-                  to="/premiumArticles"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
-                      : "font-medium hover:scale-110 duration-200"
-                  }
-                  
-                >
-                  Premium Articles
-                </NavLink>
               </>
             )}
 
@@ -200,7 +200,6 @@ const Navbar = () => {
                             ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                             : "font-medium hover:scale-110 duration-200"
                         }
-                        
                       >
                         Home
                       </NavLink>
@@ -211,7 +210,6 @@ const Navbar = () => {
                             ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                             : "font-medium hover:scale-110 duration-200"
                         }
-                        
                       >
                         Add Article
                       </NavLink>
@@ -222,7 +220,6 @@ const Navbar = () => {
                             ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                             : "font-medium hover:scale-110 duration-200"
                         }
-                        
                       >
                         All Article
                       </NavLink>
@@ -233,7 +230,6 @@ const Navbar = () => {
                             ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                             : "font-medium hover:scale-110 duration-200"
                         }
-                        
                       >
                         Subscription
                       </NavLink>
@@ -247,7 +243,6 @@ const Navbar = () => {
                                 ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                                 : "font-medium hover:scale-110 duration-200"
                             }
-                            
                           >
                             Dashboard
                           </NavLink>
@@ -260,7 +255,6 @@ const Navbar = () => {
                               ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
                               : "font-medium hover:scale-110 duration-200"
                           }
-                          
                         >
                           My Article
                         </NavLink>
@@ -268,18 +262,18 @@ const Navbar = () => {
                         ""
                       )}
 
-                      <NavLink
-                        to="/premiumArticles"
-                        className={({ isActive }) =>
-                          isActive
-                            ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
-                            : "font-medium hover:scale-110 duration-200"
-                        }
-                     
-                       
-                      >
-                        Premium Articles
-                      </NavLink>
+                      {subscriber && (
+                        <NavLink
+                          to="/premiumArticles"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "font-medium hover:scale-110 duration-200 border-b-2 border-white hover:-border-b-2"
+                              : "font-medium hover:scale-110 duration-200"
+                          }
+                        >
+                          Premium Articles
+                        </NavLink>
+                      )}
                     </>
                   )}
                   {user ? (

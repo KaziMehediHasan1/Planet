@@ -3,8 +3,6 @@ import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import usePlan from "../../hooks/Plan/usePlan";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 const Subscription = () => {
   const { loading } = useContext(AuthContext);

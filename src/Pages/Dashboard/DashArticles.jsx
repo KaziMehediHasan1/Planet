@@ -1,18 +1,21 @@
 import { MdDeleteForever } from "react-icons/md";
 import swal from "sweetalert";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import useArticles from "../../hooks/useArticles/useArticles";
+import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 const DashArticles = () => {
+  const { user } = useContext(AuthContext);
   const { count } = useLoaderData();
+  const [, refetch] = useArticles();
   const [countUser, setCountUser] = useState([]);
-  console.log(count);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const numberOfPage = Math.ceil(count / itemsPerPage);
-  console.log(numberOfPage);
   const pages = [...Array(numberOfPage).keys()];
   const axiosSecure = useAxiosSecure();
+
   const handleDeleteArticles = (id) => {
     swal({
       title: "Are you sure?",
@@ -93,6 +96,7 @@ const DashArticles = () => {
         .then((data) => setCountUser(data));
     };
     fetchCount();
+    refetch();
   }, [currentPage, itemsPerPage]);
   //prev page
   const handlePrevPage = () => {
@@ -106,6 +110,24 @@ const DashArticles = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  // decline..
+  const handleDecline = async (e, id) => {
+    e.preventDefault();
+    const form = e.target.textarea.value;
+    document.getElementById("my_modal_3").close();
+    e.target.textarea.value = "";
+    console.log(form);
+    const decline = {
+      text: form,
+      admin: user?.email,
+    };
+    const articlesData = await axiosSecure.patch(`/articles/${id}`, decline);
+    console.log(articlesData);
+    if (articlesData.data.modifiedCount > 0) {
+      swal("Good job!", "decline message successfully send", "success");
+    }
+  };
   return (
     <div className="md:ml-16">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg font-uiFont">
@@ -115,21 +137,36 @@ const DashArticles = () => {
               <th scope="col" className="p-4">
                 Serial
               </th>
-              <th scope="col" className="px-6 py-3">
-                Image
-              </th>
+
               <th scope="col" className="px-6 py-3">
                 Article
               </th>
               <th scope="col" className="px-6 py-3">
-                Premium
+                Author
               </th>
               <th scope="col" className="px-6 py-3">
-                Status
+                Author Mail
               </th>
-
+              <th scope="col" className="px-6 py-3">
+                Author Photo
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Post Date
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Publisher
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Approve
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Decline
+              </th>
               <th scope="col" className="px-6 py-3">
                 Action
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Premium
               </th>
             </tr>
           </thead>
@@ -137,32 +174,33 @@ const DashArticles = () => {
             {countUser?.map((article, index) => (
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="w-4 p-4">{index + 1}</td>
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <img
-                    className="w-10 h-10 ring rounded-lg"
-                    src={article?.image}
-                    alt="Jese image"
-                  />
-                </th>
+
                 <th>
-                  <h2 className="ps-3 text-base font-semibold">
+                  <h2 className="ps-3   font-semibold">
                     {article?.title?.slice(0, 80)}..
                   </h2>
                 </th>
-                <th className="px-6 py-4">
-                  {article?.premium === "isPremium" ? (
-                    <p className="p-1 rounded font-bold">Yes</p>
-                  ) : (
-                    <button
-                      onClick={() => handlePremium(article?._id)}
-                      className="text-white p-1 rounded font-medium bg-green-400 "
-                    >
-                      Premium
-                    </button>
-                  )}
+                <th>
+                  <h2 className="ps-3  font-semibold">{article?.ownerName}</h2>
+                </th>
+                <th>
+                  <h2 className="ps-3  font-semibold">{article?.owner}</h2>
+                </th>
+                <th
+                  scope="row"
+                  className="flex items-center px-6 py-4 whitespace-nowrap dark:text-white"
+                >
+                  <img
+                    className="w-10 h-10 ring rounded-lg"
+                    src={article?.ownerPic}
+                    alt="author photo"
+                  />
+                </th>
+                <th>
+                  <h2 className="ps-3  font-semibold">{article?.Date}</h2>
+                </th>
+                <th>
+                  <h2 className="ps-3 font-semibold">{article?.publisher}</h2>
                 </th>
 
                 <td className="px-6 py-4">
@@ -177,12 +215,64 @@ const DashArticles = () => {
                     </button>
                   )}
                 </td>
+                <th className="text-center">
+                  <div>
+                    <button
+                      className="font-uiFont text-red-950 bg-green-200 px-2 py-1 rounded-md"
+                      onClick={() =>
+                        document.getElementById("my_modal_3").showModal()
+                      }
+                    >
+                      Decline
+                    </button>
+                    <dialog id="my_modal_3" className="modal">
+                      <div className="modal-box">
+                        <button
+                          onClick={() =>
+                            document.getElementById("my_modal_3").close()
+                          }
+                          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                        >
+                          ✕
+                        </button>
+                        <form onSubmit={(e) => handleDecline(e, article?._id)}>
+                          <label className="font-bold text-sm">
+                            Why we are not approved
+                          </label>
+                          <textarea
+                          defaultValue={article?.text && article?.text}
+                            name="textarea"
+                            className="rounded-md w-full line-clamp-none resize-none mt-2 border-gray-400"
+                          ></textarea>
+                          <button
+                            type="submit"
+                            className="text-white w-[40%] rounded-md mt-4 py-2 bg-cyan-600"
+                          >
+                            Submit
+                          </button>
+                        </form>
+                      </div>
+                    </dialog>
+                  </div>
+                </th>
                 <td
                   onClick={() => handleDeleteArticles(article?._id)}
                   className="px-6 py-4"
                 >
                   <MdDeleteForever className="text-2xl"></MdDeleteForever>
                 </td>
+                <th className="px-6 py-4">
+                  {article?.premium === "isPremium" ? (
+                    <p className="p-1 rounded font-bold">Yes</p>
+                  ) : (
+                    <button
+                      onClick={() => handlePremium(article?._id)}
+                      className="text-white p-1 rounded font-medium bg-green-400 "
+                    >
+                      Premium
+                    </button>
+                  )}
+                </th>
               </tr>
             ))}
           </tbody>
@@ -256,6 +346,8 @@ const DashArticles = () => {
           </button>
         </div>
       </div>
+      {/* decline modal */}
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
     </div>
   );
 };

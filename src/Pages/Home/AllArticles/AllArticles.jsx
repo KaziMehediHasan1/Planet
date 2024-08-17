@@ -44,9 +44,21 @@ const AllArticles = () => {
   // search field...
   const handleSearch = (e) => {
     e.preventDefault();
-    const search = e.target.value;
+    const search = e.target.search.value;
+    // console.log(search);
     setSearch(search);
   };
+
+  useEffect(() => {
+    const searchData = async () => {
+      await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/articles?search=${search}`
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    };
+    searchData();
+  }, []);
 
   useEffect(() => {
     AOS.init({
@@ -60,7 +72,7 @@ const AllArticles = () => {
         <title>Planet | Articles</title>
       </Helmet>
       <form
-        onChange={handleSearch}
+        onSubmit={handleSearch}
         className="space-y-5 flex justify-center mb-6 font-uiFont"
       >
         <div className="relative">
@@ -110,7 +122,9 @@ const AllArticles = () => {
                       )}
                     </figure>
                     <div className="card-body">
-                      <h2 className="card-title font-uiFont">{item?.title}</h2>
+                      <h2 className="card-title font-uiFont">
+                        {item?.title.slice(0, 80)}
+                      </h2>
                       <p className="font-uiFont font-medium">
                         {item?.Description?.slice(0, 120)}
                       </p>
