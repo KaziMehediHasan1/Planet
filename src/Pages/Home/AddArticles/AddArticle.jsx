@@ -4,7 +4,7 @@ import img from "../../../assets/addArticle.json";
 import swal from "sweetalert";
 import useAxiosPublic from "../../../hooks/AxiosPublic/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
 import { Controller, useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
@@ -17,10 +17,11 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const AddArticle = () => {
   const axiosPublic = useAxiosPublic();
   const { user, loading } = useContext(AuthContext);
-  // const [normalUser, setPremiumUser] = useState(1);
+  const [disabled, setDisabled] = useState(false);
+  console.log(disabled);
   const [publisher, isLoading] = usePublisher();
   const [payment] = usePayment();
-  const subscriber = payment?.map((sub) => !!sub?.email === !!user?.email);
+  const subscriber = payment?.filter((sub) => sub?.email === user?.email);
   console.log(subscriber);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -29,6 +30,15 @@ const AddArticle = () => {
   const isNormalUser = allArticles?.filter(
     (normal) => normal?.owner === user?.email
   );
+
+  if (isNormalUser.length == [] && !subscriber) {
+    setDisabled(false);
+  } else if (isNormalUser.length <= 1 && !subscriber) {
+    setDisabled(false);
+  }
+  //  if(isNormalUser.length >=1 || isNormalUser.length == [] && subscriber){
+  //   setDisabled(true)
+  // }
   console.log(isNormalUser);
   // const normalUser = isNormalUser === user?.email;
 
@@ -55,7 +65,7 @@ const AddArticle = () => {
       };
       const articlesData = await axiosSecure.post("/allArticles", Articles);
       if (articlesData.data.insertedId) {
-        navigate("/my-allArticles");
+        navigate("/my-articles");
         reset();
         swal("Good job!", "Your Article is Submit Successfully", "success");
       }
@@ -153,25 +163,12 @@ const AddArticle = () => {
                 <button
                   type="submit"
                   className={` ${
-                    isNormalUser.length >= 1 &&
-                    subscriber &&
-                    "my-4 w-full p-2 px-6 font-semibold rounded bg-blue-500 hover:bg-blue-300 hover:text-black shadow-lg text-gray-100"
-                  } ${
-                    isNormalUser.length == 1 &&
-                    !subscriber &&
-                    "my-4 w-full p-2 px-6 font-semibold rounded bg-gray-500 hover:text-black shadow-lg text-gray-100"
+                    isNormalUser.length >= 1 ||
+                    (isNormalUser.length == [] && subscriber)
+                      ? "my-4 w-full p-2 px-6 font-semibold rounded bg-blue-500 hover:bg-blue-300 hover:text-black shadow-lg text-gray-100"
+                      : "my-4 w-full p-2 px-6 font-semibold rounded bg-gray-100 shadow-lg text-black"
                   }`}
-                  style={{
-                    cursor:
-                      subscriber && isNormalUser.length == 1
-                        ? "not-allowed"
-                        : "none",
-                    pointerEvents:
-                      !subscriber && isNormalUser.length <= 1
-                        ? "pointer"
-                        : "auto",
-                  }}
-                  disabled={isNormalUser.length == 1 && !subscriber}
+                  disabled={disabled}
                 >
                   Submit
                 </button>

@@ -12,8 +12,12 @@ import useArticles from "../../../hooks/useArticles/useArticles";
 import { toast } from "react-toastify";
 const AllArticles = () => {
   const [search, setSearch] = useState("");
-  const [articles, isLoading, error] = useArticles(search);
   const [filter, setFilter] = useState("");
+  // const [selectedOption, setSelectedOption] = useState("");
+  const [articles, isLoading, error] = useArticles({
+    search: search,
+    filter: filter,
+  });
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
@@ -53,6 +57,9 @@ const AllArticles = () => {
       duration: 1000,
     });
   }, []);
+  // const resetSelect = () => {
+  //   setSelectedOption("");
+  // };
 
   return (
     <div className="pt-28 mb-14">
@@ -74,24 +81,26 @@ const AllArticles = () => {
               type="search"
               name="search"
               placeholder="Search..."
-              className="w-96 mx-auto py-2 pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600 border-2 border-cyan-600"
+              className="w-96 mx-auto py-[9px] pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600 border-2 border-cyan-600"
             />
           </div>
         </form>
         <select
           onChange={(e) => setFilter(e.target.value)}
           name="publisher"
-          id="category"
-          className="border rounded-md"
+          className="border rounded-md border-cyan-600"
         >
-          <option value="">Tech Decoded</option>
-          <option value="Education">IndiaTv</option>
-          <option value="Technology">The Essential List</option>
-          <option value="Health">Future Earth</option>
-          <option value="Travel">US Election Unspun</option>
-          <option value="Travel">Daily Star</option>
-          <option value="Travel">Ajker Bangla</option>
+          <option value="Tech Decoded">Tech Decoded</option>
+          <option value="IndiaTv">IndiaTv</option>
+          <option value="The Essential List">The Essential List</option>
+          <option value="Future Earth">Future Earth</option>
+          <option value="US Election Unspun">US Election Unspun</option>
+          <option value="Daily Star">Daily Star</option>
+          <option value="Ajker Bangla">Ajker Bangla</option>
         </select>
+        <button className="bg-cyan-700 p-2 text-white rounded-md font-uiFont">
+          Reset
+        </button>
       </div>
 
       <div className=" md:max-w-screen-2xl md:mx-auto rounded-md">

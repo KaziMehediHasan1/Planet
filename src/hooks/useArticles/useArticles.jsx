@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../AxiosPublic/useAxiosPublic";
 
-const useArticles = (search) => {
+const useArticles = ({ search, filter }) => {
   const axiosPublic = useAxiosPublic();
   const {
     data: articles = [],
@@ -9,12 +9,12 @@ const useArticles = (search) => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["articles", search],
+    queryKey: ["articles", search, filter],
     queryFn: async () => {
       const data = await axiosPublic.get(
         `${
           import.meta.env.VITE_SERVER_URL
-        }/articles?search=${search}`
+        }/articles?search=${search}&filter=${filter}`
       );
       return data.data;
     },

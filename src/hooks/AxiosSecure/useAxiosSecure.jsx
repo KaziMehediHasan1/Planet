@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
-import { toast } from "react-toastify";
+
 
 const axiosSecure = axios.create({
   baseURL: `${import.meta.env.VITE_SERVER_URL}`,
