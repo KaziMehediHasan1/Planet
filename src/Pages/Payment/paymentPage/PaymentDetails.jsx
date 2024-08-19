@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import usePayment from "../../../hooks/Payment/usePayment";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
-
+import { format } from 'date-fns';
 const PaymentDetails = () => {
   const [payment] = usePayment();
-  console.log(payment);
+
   const { user } = useContext(AuthContext);
   return (
     <div className="overflow-x-auto max-w-screen-xl mx-auto md:px-5 lg:px-0">
@@ -50,10 +50,14 @@ const PaymentDetails = () => {
                         <p className="text-[13px]">{item?.transactionId}</p>
                       </td>
                       <td className="p-3 text-center">
-                        <p className="text-[13px]">{ new Date (item?.date).toLocaleDateString()}</p>
+                        <p className="text-[13px]">
+                          {new Date(item?.date).toLocaleDateString()}
+                        </p>
                       </td>
                       <td className="p-3 text-center">
-                        <p className="text-[13px]">{ new Date (item?.date).toLocaleDateString()}</p>
+                        <p className="text-[13px]">
+                          {new Date(item?.planId?.subscriptionEnd)}
+                        </p>
                       </td>
                     </tr>
                   )
