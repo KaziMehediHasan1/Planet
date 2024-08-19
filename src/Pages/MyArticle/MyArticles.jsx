@@ -1,16 +1,16 @@
 import { MdDeleteForever } from "react-icons/md";
-import useArticles from "../../hooks/useArticles/useArticles";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 import swal from "sweetalert";
 import { useContext } from "react";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import useAllArticles from "../../hooks/useAllArticles/useAllArticles";
 
 const MyArticles = () => {
-  const [articles, refetch, isLoading, error] = useArticles();
+  const [allArticles, refetch, isLoading, error] = useAllArticles();
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
-  const userArticles = articles?.filter(
+  const userArticles = allArticles?.filter(
     (article) => article?.owner === user?.email
   );
 
@@ -29,7 +29,7 @@ const MyArticles = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        axiosSecure.delete(`/articles/${id}`).then((res) => {
+        axiosSecure.delete(`/allArticles/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             swal("Poof! Your imaginary file has been deleted!", {
               icon: "success",

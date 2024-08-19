@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import useArticles from "../../../hooks/useArticles/useArticles";
 import { Helmet } from "react-helmet";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import useAllArticles from "../../../hooks/useAllArticles/useAllArticles";
 const ArticleDetails = () => {
-  const [articles] = useArticles();
+  const [allArticles] = useAllArticles();
   const { id } = useParams();
   useEffect(() => {
     AOS.init({
@@ -20,7 +20,7 @@ const ArticleDetails = () => {
       </Helmet>
       <div className="max-w-screen-xl mx-auto mb-10 font-uiFont">
         <div>
-          {articles?.map(
+          {allArticles?.map(
             (article) =>
               article._id === id && (
                 <div key={article._id}>

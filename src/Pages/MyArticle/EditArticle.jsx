@@ -7,12 +7,12 @@ import { Controller, useForm } from "react-hook-form";
 import usePublisher from "../../hooks/getPublisher/usePublisher";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
-import useArticles from "../../hooks/useArticles/useArticles";
+import useAllArticles from "../../hooks/useAllArticles/useAllArticles";
 const EditArticle = () => {
   const { id } = useParams();
-  const [articles, refetch, isLoading, error] = useArticles();
+  const [allArticles, refetch, isLoading, error] = useAllArticles();
   const { user } = useContext(AuthContext);
-  const userArticles = articles?.filter(
+  const userArticles = allArticles?.filter(
     (article) => article?.owner === user?.email
   );
   const [publisher] = usePublisher();
@@ -26,7 +26,10 @@ const EditArticle = () => {
       publisher: data.publisher,
       tags: data.tags,
     };
-    const articlesData = await axiosSecure.patch(`/EditArticle/${id}`, Articles);
+    const articlesData = await axiosSecure.patch(
+      `/EditArticle/${id}`,
+      Articles
+    );
     if (articlesData.data.modifiedCount > 0) {
       navigate("/my-articles");
       reset();

@@ -13,17 +13,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import usePayment from "../../hooks/Payment/usePayment";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
-import useArticles from "../../hooks/useArticles/useArticles";
-import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import modal from "../../assets/modaltow.json";
+import useAllArticles from "../../hooks/useAllArticles/useAllArticles";
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [payment, isLoading] = usePayment();
   const axiosSecure = useAxiosSecure();
-  const [articles] = useArticles();
+  const [allArticles, refetch] = useAllArticles();
   const navigate = useNavigate();
-
   const [showModal, setShowModal] = useState(false);
   const dialogRef = useRef(null);
 
@@ -60,19 +58,16 @@ const Home = () => {
   // Check if the user is a subscriber
   const subscriber = payment?.some((sub) => sub.email === user?.email);
   // console.log(subscriber);
-  const approvedArticles = articles?.filter(
+  const approvedArticles = allArticles?.filter(
     (article) => article?.status === "Approved"
   );
-  const handleDetails = async (e, isPremium) => {
-    if (subscriber || !isPremium) {
-      navigate(`/articleDetails/${e}`);
-      await axiosSecure.put(`/viewCount/${e}`).then((res) => {
-        console.log(res);
-      });
-    } else if (!user) {
-      toast.error("Please buy a subscription plan!");
-    }
+  const handleDetails = async (e) => {
+    navigate(`/articleDetails/${e}`);
+    await axiosSecure.put(`/viewCount/${e}`).then((res) => {
+      console.log(res);
+    });
   };
+  refetch();
   return (
     <div className="bg-cyan-100">
       <div>
@@ -121,7 +116,7 @@ const Home = () => {
                         </figure>
                         <div className="card-body">
                           <h2 className="card-title font-uiFont">
-                            {item?.title.slice(0,80)}
+                            {item?.title.slice(0, 80)}
                           </h2>
                           <p className="font-uiFont font-medium">
                             {item?.Description?.slice(0, 120)}
@@ -142,16 +137,11 @@ const Home = () => {
                               disabled={
                                 !subscriber && item?.premium === "isPremium"
                               }
-                              onClick={() =>
-                                handleDetails(
-                                  item?._id,
-                                  item?.premium === "isPremium"
-                                )
-                              }
+                              onClick={() => handleDetails(item?._id)}
                               className={`text-sm text-green-800 border-2 px-6 py-2 rounded-md font-uiFont font-semibold ${
                                 !subscriber && item?.premium === "isPremium"
-                                  ? "bg-slate-300 text-green-800"
-                                  : "bg-gray-800 text-white cursor-not-allowed"
+                                  ? "bg-slate-200 text-green-800"
+                                  : "bg-gray-800 text-white cursor-pointer"
                               }`}
                             >
                               Read

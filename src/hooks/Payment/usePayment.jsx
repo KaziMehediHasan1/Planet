@@ -6,22 +6,21 @@ import useAxiosPublic from "../AxiosPublic/useAxiosPublic";
 const usePayment = () => {
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  const paymentData = () => {
-    const {
-      data: payment,
-      refetch,
-      isLoading,
-      error,
-    } = useQuery({
-      queryKey: ["payment", user?.email],
-      queryFn: async () => {
-        const res = await axiosPublic.get("/payment");
-        return res.data;
-      },
-    });
-    paymentData();
-    return [payment, refetch, isLoading, error];
-  };
+
+  const {
+    data: payment,
+    refetch,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["payment", user?.email],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/payment");
+      return res.data;
+    },
+  });
+  
+  return [payment, refetch, isLoading, error];
 };
 
 export default usePayment;

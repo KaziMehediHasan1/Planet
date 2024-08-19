@@ -8,9 +8,9 @@ import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { Helmet } from "react-helmet";
 import { useLoaderData } from "react-router-dom";
 
-
 const Users = () => {
   const [users, refetch, isLoading] = useAllUsers();
+  // const [refetchData, setRefetchData] = useState(true);
   const [countUser, setCountUser] = useState([]);
   const { count } = useLoaderData();
   const axiosSecure = useAxiosSecure();
@@ -36,9 +36,9 @@ const Users = () => {
         .then((res) => res.json())
         .then((data) => setCountUser(data));
     };
-    fetchCount()
+    fetchCount();
+    refetch();
   }, [currentPage]);
-  
 
   const handleDeleteUser = (user) => {
     swal({
@@ -55,23 +55,24 @@ const Users = () => {
               icon: "success",
             });
           }
-          refetch();
         });
       } else {
         swal("Your imaginary file is safe!");
       }
     });
+    refetch();
   };
 
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      refetch();
       if (res.data.modifiedCount > 0) {
         swal("Awesome", `${user?.name} is and Admin Now!`, "success");
+        refetch();
       } else {
         swal("Sad!", `${user?.name} Not Update`, "error");
       }
     });
+    refetch();
   };
   //prev page
   const handlePrevPage = () => {

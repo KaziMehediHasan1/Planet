@@ -1,10 +1,10 @@
 import Chart from "react-google-charts";
-import useArticles from "../../../hooks/useArticles/useArticles";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import useAllArticles from "../../../hooks/useAllArticles/useAllArticles";
 const Statistics = () => {
-  const [articles] = useArticles();
+  const [allArticles] = useAllArticles();
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -13,20 +13,26 @@ const Statistics = () => {
   }, []);
 
   // pei chart..
-  const publisherA = articles?.filter(
+  const publisherA = allArticles?.filter(
     (itemA) => itemA?.publisher === "Tech Decoded"
   );
-  const publisherB = articles?.filter(
+  const publisherB = allArticles?.filter(
     (itemB) => itemB?.publisher === "IndiaTv"
   );
-  const publisherC = articles?.filter(
+  const publisherC = allArticles?.filter(
     (itemC) => itemC?.publisher === "The Essential List"
   );
-  const publisherD = articles?.filter(
+  const publisherD = allArticles?.filter(
     (itemD) => itemD?.publisher === "Future Earth"
   );
-  const publisherE = articles?.filter(
+  const publisherE = allArticles?.filter(
     (itemE) => itemE?.publisher === "US Election Unspun"
+  );
+  const publisherF = allArticles?.filter(
+    (itemE) => itemE?.publisher === "Ajker Bangla"
+  );
+  const publisherG = allArticles?.filter(
+    (itemE) => itemE?.publisher === "Daily Star"
   );
 
   // pei chart..
@@ -38,6 +44,8 @@ const Statistics = () => {
     ["The Essential List", publisherC?.length],
     ["Future Earth", publisherD?.length],
     ["US Election Unspun", publisherE?.length],
+    ["Ajker Bangla", publisherF?.length],
+    ["Daily Star", publisherG?.length],
   ];
 
   const options = {
@@ -74,10 +82,14 @@ const Statistics = () => {
 
   // bar chart..
   // get viewCount, article owner, article title..
-  const sexArticle = articles?.slice(0, 6)?.filter((barA) => barA?.viewCount);
+  const sexArticle = allArticles
+    ?.slice(0, 6)
+    ?.filter((barA) => barA?.viewCount);
   const filter = [
     ["article", "author", "views"],
-    ...(sexArticle ? sexArticle?.map((item) => [item?.title, item?.owner, item?.viewCount]) : []),
+    ...(sexArticle
+      ? sexArticle?.map((item) => [item?.title, item?.owner, item?.viewCount])
+      : []),
   ];
   const options2 = {
     title: "Article Views",
@@ -107,8 +119,7 @@ const Statistics = () => {
   };
 
   return (
-    <div data-aos="fade-up"
-    data-aos-anchor-placement="top-bottom">
+    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <Chart
         chartType="PieChart"
         data={data}

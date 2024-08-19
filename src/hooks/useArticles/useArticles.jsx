@@ -1,23 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../AxiosPublic/useAxiosPublic";
 
-const useArticles = () => {
+const useArticles = (search) => {
   const axiosPublic = useAxiosPublic();
   const {
-    data: articles,
+    data: articles = [],
     refetch,
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["articles"],
+    queryKey: ["articles", search],
     queryFn: async () => {
       const data = await axiosPublic.get(
-        `${import.meta.env.VITE_SERVER_URL}/articles`
+        `${
+          import.meta.env.VITE_SERVER_URL
+        }/articles?search=${search}`
       );
       return data.data;
     },
   });
-  
 
   return [articles, refetch, isLoading, error];
 };

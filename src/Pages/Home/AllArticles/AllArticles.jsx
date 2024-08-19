@@ -1,5 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import useArticles from "../../../hooks/useArticles/useArticles";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -9,29 +8,29 @@ import "aos/dist/aos.css";
 import AOS from "aos";
 import { motion } from "framer-motion";
 import usePayment from "../../../hooks/Payment/usePayment";
+import useArticles from "../../../hooks/useArticles/useArticles";
+import { toast } from "react-toastify";
 const AllArticles = () => {
+  const [search, setSearch] = useState("");
+  const [articles, isLoading, error] = useArticles(search);
+  const [filter, setFilter] = useState("");
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [payment] = usePayment();
 
-  const [articles, isLoading, error] = useArticles();
-  const [search, setSearch] = useState("");
-
   if (isLoading) {
-    <p>Loading...</p>;
+    <p className="mt-[500px]">loading...</p>;
   }
-  if (error) {
-    <span>Error:{error.message}</span>;
-  }
+
   // Check if the user is a subscriber
   const subscriber = payment?.some((sub) => sub.email === user?.email);
   // console.log(subscriber);
   const approvedArticles = articles?.filter(
     (article) => article?.status === "Approved"
   );
-  const handleDetails = async (e, isPremium) => {
-    if (subscriber || !isPremium) {
+  const handleDetails = async (e) => {
+    if (user?.email) {
       navigate(`/articleDetails/${e}`);
       await axiosSecure.put(`/viewCount/${e}`).then((res) => {
         console.log(res);
@@ -50,17 +49,6 @@ const AllArticles = () => {
   };
 
   useEffect(() => {
-    const searchData = async () => {
-      await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/articles?search=${search}`
-      )
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    };
-    searchData();
-  }, []);
-
-  useEffect(() => {
     AOS.init({
       duration: 1000,
     });
@@ -71,35 +59,52 @@ const AllArticles = () => {
       <Helmet>
         <title>Planet | Articles</title>
       </Helmet>
-      <form
-        onSubmit={handleSearch}
-        className="space-y-5 flex justify-center mb-6 font-uiFont"
-      >
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-            <button type="submit" className="p-1 focus:outline-none focus:ring">
-              <CiSearch className="w-5 h-5 text-gray-800"></CiSearch>
-            </button>
-          </span>
-          <input
-            type="search"
-            name="search"
-            placeholder="Search..."
-            className="w-96 mx-auto py-2 pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600 border-2 border-cyan-600"
-          />
-        </div>
-      </form>
+      <div className="flex items-center justify-center space-x-3">
+        <form onSubmit={handleSearch} className=" font-uiFont">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+              <button
+                type="submit"
+                className="p-1 focus:outline-none focus:ring"
+              >
+                <CiSearch className="w-5 h-5 text-gray-800"></CiSearch>
+              </button>
+            </span>
+            <input
+              type="search"
+              name="search"
+              placeholder="Search..."
+              className="w-96 mx-auto py-2 pl-10 text-sm rounded-md focus:outline-none focus:border-sky-600 border-2 border-cyan-600"
+            />
+          </div>
+        </form>
+        <select
+          onChange={(e) => setFilter(e.target.value)}
+          name="publisher"
+          id="category"
+          className="border rounded-md"
+        >
+          <option value="">Tech Decoded</option>
+          <option value="Education">IndiaTv</option>
+          <option value="Technology">The Essential List</option>
+          <option value="Health">Future Earth</option>
+          <option value="Travel">US Election Unspun</option>
+          <option value="Travel">Daily Star</option>
+          <option value="Travel">Ajker Bangla</option>
+        </select>
+      </div>
 
       <div className=" md:max-w-screen-2xl md:mx-auto rounded-md">
         <div className="grid grid-cols-1 gap-8 mt-14 lg:grid-cols-3 md:grid-cols-2">
           {approvedArticles
-            ?.filter((item) => {
-              return search.toLowerCase() === ""
-                ? item
-                : item.title.toLowerCase().includes(search);
-            })
+            // ?.filter((item) => {
+            //   return search.toLowerCase() === ""
+            //     ? item
+            //     : item.title.toLowerCase().includes(search);
+            // })
             .map((item) => (
               <div
+                key={item?._id}
                 className=" md:max-w-screen-2xl md:mx-auto "
                 data-aos="fade-right fade-left"
               >
@@ -147,15 +152,10 @@ const AllArticles = () => {
                           disabled={
                             !subscriber && item?.premium === "isPremium"
                           }
-                          onClick={() =>
-                            handleDetails(
-                              item?._id,
-                              item?.premium === "isPremium"
-                            )
-                          }
+                          onClick={() => handleDetails(item?._id)}
                           className={`text-sm text-green-800 border-2 px-6 py-2 rounded-md font-uiFont font-semibold ${
                             !subscriber && item?.premium === "isPremium"
-                              ? "bg-slate-300 text-green-800"
+                              ? "bg-slate-200 text-green-800"
                               : "bg-gray-800 text-white cursor-not-allowed"
                           }`}
                         >

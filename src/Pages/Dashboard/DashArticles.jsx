@@ -3,12 +3,11 @@ import swal from "sweetalert";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
 import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import useArticles from "../../hooks/useArticles/useArticles";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 const DashArticles = () => {
   const { user } = useContext(AuthContext);
+  const [refetchData, setRefetchData] = useState(true);
   const { count } = useLoaderData();
-  const [, refetch] = useArticles();
   const [countUser, setCountUser] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
@@ -31,7 +30,8 @@ const DashArticles = () => {
               icon: "success",
             });
           }
-          refetch();
+          
+          setRefetchData(!refetchData);
         });
       } else {
         swal("Your imaginary file is safe!");
@@ -53,7 +53,8 @@ const DashArticles = () => {
               icon: "success",
             });
           }
-          refetch();
+          
+          setRefetchData(!refetchData);
         });
       } else {
         swal("this article is not approved!");
@@ -76,7 +77,8 @@ const DashArticles = () => {
               icon: "success",
             });
           }
-          refetch();
+         
+          setRefetchData(!refetchData);
         });
       } else {
         swal("Your imaginary file is safe!");
@@ -96,8 +98,8 @@ const DashArticles = () => {
         .then((data) => setCountUser(data));
     };
     fetchCount();
-    refetch();
-  }, [currentPage, itemsPerPage]);
+    
+  }, [currentPage, itemsPerPage, refetchData]);
   //prev page
   const handlePrevPage = () => {
     if (currentPage > 0) {
@@ -240,7 +242,7 @@ const DashArticles = () => {
                             Why we are not approved
                           </label>
                           <textarea
-                          defaultValue={article?.text && article?.text}
+                            defaultValue={article?.text && article?.text}
                             name="textarea"
                             className="rounded-md w-full line-clamp-none resize-none mt-2 border-gray-400"
                           ></textarea>

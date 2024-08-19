@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import useArticles from "../../hooks/useArticles/useArticles";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
@@ -8,9 +7,11 @@ import usePayment from "../../hooks/Payment/usePayment";
 import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
+import useAllArticles from "../../hooks/useAllArticles/useAllArticles";
 
 const PremiumArticle = () => {
-  const [articles, isLoading, error] = useArticles();
+  const [allArticles, refetch, isLoading, error] = useAllArticles();
+  console.log(allArticles);
   const [payment] = usePayment();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -21,7 +22,7 @@ const PremiumArticle = () => {
   if (error) {
     <span>Error:{error.message}</span>;
   }
-  const approvedArticles = articles?.filter(
+  const approvedArticles = allArticles?.filter(
     (article) => article?.status === "Approved"
   );
   useEffect(() => {
@@ -42,6 +43,7 @@ const PremiumArticle = () => {
     }
   };
   const subscriber = payment?.some((sub) => sub.email === user?.email);
+  refetch();
   return (
     <div className="pb-16">
       <Helmet>
@@ -55,7 +57,7 @@ const PremiumArticle = () => {
           <Link to="/subscription" className="hover:underline">
             <span className="text-xl text-blue-700">S</span>ubscribe
           </Link>{" "}
-          and read your favorite articles on Planet, where the latest news meets
+          and read your favorite allArticles on Planet, where the latest news meets
           in-depth analysis. Enjoy premium content, exclusive insights, and stay
           informed with personalized recommendations. Join our community and
           never miss a story that matters.

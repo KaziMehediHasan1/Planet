@@ -4,8 +4,9 @@ import useAxiosSecure from "../AxiosSecure/useAxiosSecure";
 const useAllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const {
-    refetch,
+    
     data: users,
+    refetch,
     error,
     isLoading,
   } = useQuery({

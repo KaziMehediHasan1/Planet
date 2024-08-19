@@ -11,7 +11,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import usePublisher from "../../../hooks/getPublisher/usePublisher";
 import Lottie from "lottie-react";
 import usePayment from "../../../hooks/Payment/usePayment";
-import useArticles from "../../../hooks/useArticles/useArticles";
+import useAllArticles from "../../../hooks/useAllArticles/useAllArticles";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddArticle = () => {
@@ -24,12 +24,15 @@ const AddArticle = () => {
   console.log(subscriber);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const [articles] = useArticles();
+  const [allArticles] = useAllArticles();
   // check user article is not > 1
-  const isNormalUser = articles?.filter(
+  const isNormalUser = allArticles?.filter(
     (normal) => normal?.owner === user?.email
   );
   console.log(isNormalUser);
+  // const normalUser = isNormalUser === user?.email;
+
+  // console.log(normalUser);
   const { register, handleSubmit, reset, control } = useForm();
   const onSubmit = async (data) => {
     const imageFile = { image: data.image[0] };
@@ -50,9 +53,9 @@ const AddArticle = () => {
         ownerPic: user?.photoURL,
         Date: new Date().toDateString(),
       };
-      const articlesData = await axiosSecure.post("/articles", Articles);
+      const articlesData = await axiosSecure.post("/allArticles", Articles);
       if (articlesData.data.insertedId) {
-        navigate("/my-articles");
+        navigate("/my-allArticles");
         reset();
         swal("Good job!", "Your Article is Submit Successfully", "success");
       }
