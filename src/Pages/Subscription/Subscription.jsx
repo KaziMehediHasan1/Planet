@@ -8,8 +8,11 @@ const Subscription = () => {
   const { loading } = useContext(AuthContext);
   const [plan] = usePlan();
   const free = plan?.filter((free) => free?.type === "Free");
-  const Essential = plan?.filter((free) => free?.type === "Essential");
-  const Premium = plan?.filter((free) => free?.type === "Premium");
+  const Essential = plan?.filter(
+    (Essential) => Essential?.type === "Essential"
+  );
+  const Premium = plan?.filter((premium) => premium?.type === "Premium");
+
   if (loading) {
     <div>
       <span className="loading loading-bars loading-xs"></span>
@@ -27,7 +30,7 @@ const Subscription = () => {
         </Helmet>
         <div className="mt-20">
           <div
-            className="hero h-80 mb-16"
+            className="hero h-80 mb-10"
             style={{
               backgroundImage:
                 "url(https://i.pinimg.com/564x/78/fa/0d/78fa0d0463a9f8f99c0d8f15e0761516.jpg)",
@@ -55,7 +58,10 @@ const Subscription = () => {
             {/* first card */}
             <div className="md:max-w-sm  mx-auto border bg-gray-900 text-white shover:shadow-lg shadow-blue-400 shadow-xl hover:shadow-black rounded-lg md:mx-4 border-gray-700">
               {free?.map((first) => (
-                <NavLink to={`/payment/${first._id}`}>
+                <NavLink
+                  title="this is for checking"
+                  to={`/payment/${first._id}`}
+                >
                   <div key={first._id}>
                     <div className="p-6">
                       <h1 className="text-xl font-medium  capitalize lg:text-2xl">
@@ -64,8 +70,8 @@ const Subscription = () => {
 
                       <h2 className="mt-4 text-2xl font-semibold sm:text-3xl ">
                         ${first.money}
-                        <span className="text-base font-medium">
-                          /{first?.period}
+                        <span className="font-medium ml-2 text-blue-500 text-2xl">
+                          / this is for checking / 1min
                         </span>
                       </h2>
 

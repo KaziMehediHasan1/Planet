@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import usePayment from "../../../hooks/Payment/usePayment";
 import { AuthContext } from "../../../Component/AuthProvider/AuthProvider";
-import { format } from 'date-fns';
+// import { format } from "date-fns";
 const PaymentDetails = () => {
   const [payment] = usePayment();
 
@@ -56,7 +56,7 @@ const PaymentDetails = () => {
                       </td>
                       <td className="p-3 text-center">
                         <p className="text-[13px]">
-                          {new Date(item?.planId?.subscriptionEnd)}
+                          {item?.planId?.subscriptionEnd}
                         </p>
                       </td>
                     </tr>

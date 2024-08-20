@@ -69,7 +69,8 @@ const PaymentForm = ({ id }) => {
           email: user?.email,
           price: prices,
           transactionId: paymentIntent.id,
-          date: new Date(),
+          StartedDate: new Date(),
+          // EndingTime: new Date()
           planId: plan.find((item) => item?._id === id.id && item?._id),
           status: paymentIntent.status,
         };

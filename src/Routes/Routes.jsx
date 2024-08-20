@@ -16,7 +16,6 @@ import PremiumArticle from "../Pages/PremiumArticle/PremiumArticle";
 import MyArticles from "../Pages/MyArticle/MyArticles";
 import AdminRoute from "./AdminRoutes/AdminRoute";
 import Profile from "../Pages/Profile/Profile";
-import DashMyArticles from "../Pages/Dashboard/MyArticles/DashMyArticles";
 import ArticleDetails from "../Pages/Home/AllArticles/ArticleDetails";
 import EditArticle from "../Pages/MyArticle/EditArticle";
 import Payment from "../Pages/Payment/Payment";

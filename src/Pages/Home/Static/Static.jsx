@@ -9,13 +9,14 @@ const Static = () => {
   const [normalUser, setNormalUser] = useState(0);
   const [premiumUser, setPremiumUser] = useState(0);
   const [users] = useAllUsers();
-  const [payment] = usePayment();
+  const [payment, refetch] = usePayment();
   useEffect(() => {
     setTimeout(() => {
       if (allUser < users?.length) {
         setAllUsers(allUser + 1);
       }
     });
+    refetch();
   }, [allUser]);
 
   // normal user..
@@ -25,6 +26,7 @@ const Static = () => {
         setNormalUser(normalUser + 1);
       }
     });
+    refetch();
   }, [normalUser]);
   // // premium user...
   useEffect(() => {
@@ -33,7 +35,9 @@ const Static = () => {
         setPremiumUser(premiumUser + 1);
       }
     });
+    refetch();
   }, [premiumUser]);
+  refetch();
 
   return (
     <div className=" border-blue-300 border-b rounded-b-md rounded-t-md border-t">
