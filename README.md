@@ -1,8 +1,26 @@
-# React + Vite
+# Planet
+## Admin User Name - planetadmin@gmail.com
+### Planet123Admin#@123
+[Live view]( https://newspaper-6afe6.firebaseapp.com)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ **feature**
+ 1. pagination
+ 2. search
+ 3. filter
+ 4. stripe payment system
 
-Currently, two official plugins are available:
+**technology use**
+1. javascript
+2. react js
+3. jwt
+4. firebase
+5. axios
+6. tailwind css etc..
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**others**
+1. react form
+2. material ui
+3. flowbite
+4. framer motion
+5. chakra ui
+6. lottie react etc..
