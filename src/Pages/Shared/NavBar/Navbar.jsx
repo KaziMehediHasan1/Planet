@@ -44,7 +44,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex justify-between px-10 fixed z-10 w-full items-center font-uiFont md:px-16 py-2 bg-[#40538b]">
+    <div className="flex justify-between lg:px-10 md:px-7 px-3 fixed z-10 w-full items-center font-uiFont py-2 bg-slate-900 ">
       <div>
         <Link
           to="/"
@@ -61,7 +61,7 @@ const Navbar = () => {
       >
         {/* md to lg  device */}
         <div className="md:flex items-center hidden sm:text-xs lg:text-[17px] text-white">
-          <ul className="flex justify-center items-center md:space-x-[12px] lg:space-x-10 ml-4 cursor-pointer px-4">
+          <ul className="flex justify-center items-center md:space-x-[18px] lg:space-x-10 ml-4 cursor-pointer px-4">
             {user && (
               <>
                 <NavLink
@@ -187,7 +187,7 @@ const Navbar = () => {
             onClick={() => setNav(!nav)}
             className="cursor-pointer py-4 z-50 md:hidden"
           >
-            {nav ? <FaTimes size={30}></FaTimes> : <FaBars size={30}></FaBars>}
+            {nav ? <FaTimes size={30} className="text-white"></FaTimes> : <FaBars size={30} className="text-white"></FaBars>}
             {nav && (
               <div>
                 <ul className="flex space-y-4 text-white  flex-col justify-center mt-20 p-14 bg-black items-center absolute top-0 left-36 rounded-md">

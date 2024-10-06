@@ -72,8 +72,8 @@ const AddArticle = () => {
     }
   };
 
-  if (loading || isLoading) {
-    <p>Loading....</p>;
+  if (loading) {
+    return <p>Loading....</p>;
   }
 
   return (
@@ -81,22 +81,20 @@ const AddArticle = () => {
       <Helmet>
         <title>Planet || Add Article</title>
       </Helmet>
-      <section className="p-6 bg-gray-100 text-gray-900 font-uiFont">
+      <section className="pt-6  text-gray-900 font-uiFont">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="container  mt-14 flex flex-col mx-auto space-y-12"
+          className="container mt-14 flex flex-col space-y-12  lg:w-[1320px] md:w-[500px] mx-auto"
         >
-          <fieldset className="grid grid-cols-6 gap-10 p-6 rounded-md shadow-sm bg-gray-50 ">
-            <div className="space-y-2 max-lg:w-96 mt-4 lg:col-span-3">
+          <fieldset className="grid grid-cols-6 gap-10 p-6 rounded-md shadow-sm">
+            <div className="space-y-2  lg:w-[590px] lg:h-[540px] md:w-[450px] w-[365px] lg:col-span-3 border rounded-md shadow-md">
               <Lottie animationData={img}></Lottie>
             </div>
 
             {/* Input Field */}
             <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-              <div className="col-span-full w-full sm:col-span-4">
-                <label htmlFor="firstname" className="text-sm font-semibold">
-                  Title
-                </label>
+              <div className="col-span-full w-full md:col-span-6 lg:col-span-4">
+                <label className="text-sm font-semibold">Title</label>
                 <input
                   id="title"
                   type="text"
@@ -106,7 +104,7 @@ const AddArticle = () => {
                 />
               </div>
 
-              <div className="col-span-5 sm:col-span-4">
+              <div className="col-span-6 md:col-span-6 lg:col-span-4">
                 <label htmlFor="email" className="text-sm font-semibold">
                   Description
                 </label>
@@ -118,8 +116,8 @@ const AddArticle = () => {
                   className="w-full rounded-md hover:bg-blue-100  focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-sky-600 border-gray-300"
                 />
               </div>
-              <div className="col-span-4">
-                <label htmlFor="address" className="text-sm font-semibold">
+              <div className="md:col-span-6 lg:col-span-4 col-span-6 ">
+                <label htmlFor="address" className="text-sm font-semibold ">
                   Image
                 </label>
                 <input
@@ -127,10 +125,10 @@ const AddArticle = () => {
                   type="file"
                   {...register("image", { required: true })}
                   placeholder="image"
-                  className="w-full hover:bg-blue-100  rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-sky-600 border-gray-300"
+                  className="w-full hover:bg-blue-100  rounded-md focus:ring focus:ring-opacity-75 text-gray-900 bg-sky-200 border-gray-300"
                 />
               </div>
-              <div className="col-span-full  w-full sm:col-span-4">
+              <div className="col-span-full  w-full md:col-span-6 lg:col-span-4">
                 <label htmlFor="firstname" className="text-sm font-semibold">
                   Publisher
                 </label>
@@ -147,7 +145,7 @@ const AddArticle = () => {
                   ))}
                 </select>
               </div>
-              <div className="col-span-full w-full sm:col-span-4">
+              <div className="col-span-full w-full md:col-span-6 lg:col-span-4">
                 <label htmlFor="Tags" className="text-sm font-semibold">
                   Tags
                 </label>
@@ -159,13 +157,13 @@ const AddArticle = () => {
                 />
               </div>
               <br />
-              <div className="col-span-full w container space-x-4 sm:col-span-2">
+              <div className="col-span-full  space-x-4 md:col-span-6 lg:col-span-4">
                 <button
                   type="submit"
                   className={` ${
                     isNormalUser.length >= 1 ||
                     (isNormalUser.length == [] && subscriber)
-                      ? "my-4 w-full p-2 px-6 font-semibold rounded bg-blue-500 hover:bg-blue-300 hover:text-black shadow-lg text-gray-100"
+                      ? "my-4 w-full p-2 px-6 font-semibold rounded bg-blue-500 hover:bg-blue-300 hover:text-black shadow-lg text-gray-100 "
                       : "my-4 w-full p-2 px-6 font-semibold rounded bg-gray-100 shadow-lg text-black"
                   }`}
                   disabled={disabled}

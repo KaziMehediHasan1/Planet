@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1e294b] text-white dark:bg-gray-900">
+    <footer className="bg-slate-950 text-white dark:bg-gray-900">
       <div className=" p-6 mx-auto font-uiFont">
         <div className="lg:flex">
           <div className="w-full -mx-6 lg:w-2/5">
             <div className="px-6">
               <Link>
                 <h1 className="font-uiFont font-semibold text-4xl uppercase">
-                  <span className="text-blue-400 shadow-md drop-shadow-lg">
+                  <span className="text-blue-600 shadow-md drop-shadow-lg">
                     P
                   </span>
                   lanet

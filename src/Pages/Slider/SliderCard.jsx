@@ -1,17 +1,10 @@
-import { useContext } from "react";
 import useAxiosSecure from "../../hooks/AxiosSecure/useAxiosSecure";
-import usePayment from "../../hooks/Payment/usePayment";
-import { AuthContext } from "../../Component/AuthProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const SliderCard = ({ article }) => {
-  const { title, image, Description, _id, isPremium } = article;
+  const { title, image, Description, _id } = article;
   const axiosSecure = useAxiosSecure();
-  const { user } = useContext(AuthContext);
-  const [payment] = usePayment();
   const navigate = useNavigate();
-  const subscriber = payment?.some((sub) => sub.email === user?.email);
-  // console.log(subscriber);
 
   const handleDetails = async (e) => {
     navigate(`/articleDetails/${e}`);
@@ -20,7 +13,7 @@ const SliderCard = ({ article }) => {
     });
   };
   return (
-    <div className="mt-[65px]">
+    <div className="mt-[64px] h-[500px] lg:h-[700px] ">
       <div
         className="hero h-[750px]"
         style={{
@@ -29,8 +22,8 @@ const SliderCard = ({ article }) => {
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-uiFont font-semibold ">
+          <div>
+            <h1 className="md:mb-5 mb-0 lg:text-4xl md:text-3xl text-xl font-uiFont font-semibold">
               {title?.slice(0, 80)}..
             </h1>
             <p className="mb-5 font-uiFont font-medium">

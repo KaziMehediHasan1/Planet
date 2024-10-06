@@ -15,7 +15,7 @@ const AllPublisher = () => {
 
   return (
     <div>
-      <section className=" p-28">
+      <section className=" lg:p-28 md:p-16 p-6">
         <h2 className="text-2xl font-semibold text-center capitalize lg:text-4xl dark:text-white font-uiFont">
           Publishers{" "}
           <span className="text-bold text-green-500 font-uiFont">
@@ -31,7 +31,7 @@ const AllPublisher = () => {
           </span>{" "}
           <Cursor></Cursor>
         </h2>
-        <div className="md:max-w-screen-xl mx-auto px-6 py-8 ">
+        <div className="md:px-6 py-8 ">
           <p className="text-center font-uiFont font-medium">
             Planet collaborates with a wide range of publishers to bring you the
             latest news and insights. From global news agencies to independent
@@ -41,16 +41,16 @@ const AllPublisher = () => {
             with Planet, where a multitude of publishers contribute to our
             dynamic news ecosystem.
           </p>
-          <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-8 mt-8 md:grid-cols-2 lg:grid-cols-4 ">
             {publishers?.map((publisher) => (
               <div
                 key={publisher._id}
-                className="w-full max-w-xs bg-slate-300 p-4 rounded-md text-white text-center"
+                className="w-full lg:max-w-xs bg-slate-300 p-4 rounded-md text-white text-center"
                 data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                 <img
-                  className="object-cover object-center w-full h-48 mx-auto rounded-lg"
+                  className="object-cover object-center w-full h-44 mx-auto rounded-lg"
                   src={publisher?.logo}
-                  alt="avatar"
+                  
                 />
 
                 <h3 className="text-lg mt-5 font-medium text-black  dark:text-gray-200 font-uiFont">

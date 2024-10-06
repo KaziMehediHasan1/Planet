@@ -11,7 +11,6 @@ import useAllArticles from "../../hooks/useAllArticles/useAllArticles";
 
 const PremiumArticle = () => {
   const [allArticles, refetch, isLoading, error] = useAllArticles();
-  console.log(allArticles);
   const [payment] = usePayment();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -49,18 +48,18 @@ const PremiumArticle = () => {
       <Helmet>
         <title>Planet | Premium-Articles</title>
       </Helmet>
-      <div className="pt-28 md:max-w-screen-2xl md:mx-auto">
+      <div className="pt-28 lg:w-[1320px] mx-auto">
         <h1 className="text-center text-3xl font-uiFont text-gray-600">
           All Premium Article
         </h1>
-        <p className="text-center px-64 mt-4 text-gray-600 font-uiFont">
+        <p className="text-center lg:px-64 md:px-7 px-5 mt-4 text-gray-600 font-uiFont">
           <Link to="/subscription" className="hover:underline">
             <span className="text-xl text-blue-700">S</span>ubscribe
           </Link>{" "}
-          and read your favorite allArticles on Planet, where the latest news meets
-          in-depth analysis. Enjoy premium content, exclusive insights, and stay
-          informed with personalized recommendations. Join our community and
-          never miss a story that matters.
+          and read your favorite allArticles on Planet, where the latest news
+          meets in-depth analysis. Enjoy premium content, exclusive insights,
+          and stay informed with personalized recommendations. Join our
+          community and never miss a story that matters.
         </p>
         <div className=" rounded-md px-4">
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:gap-2 md:gap-5 mt-8 font-uiFont mx-8 md:mx-0">
@@ -75,12 +74,12 @@ const PremiumArticle = () => {
                       >
                         <motion.div
                           whileHover={{ scale: 1.1 }}
-                          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 sm:grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-8 lg:px-0 mx-8"
+                          className="grid lg:grid-cols-3 mb-14 md:grid-cols-2 grid-cols-1 md:gap-10 gap-5 md:max-w-screen-xl md:mx-auto md:px-5 lg:px-0 lg:mx-8"
                         >
-                          <div className="card bg-base-100 lg:w-96 lg:h-[480px] md:w-80 md:h-[420px] mx-auto shadow-xl">
+                          <div className="card bg-base-100 w-80  lg:h-[500px] md:h-[500px] mx-auto shadow-xl">
                             <figure className="relative">
                               <img
-                                className="object-cover object-center lg:w-full rounded-t-md h-44"
+                                className="object-cover object-center lg:w-full rounded-t-md h-52"
                                 src={article?.image}
                                 alt="Shoes"
                               />
